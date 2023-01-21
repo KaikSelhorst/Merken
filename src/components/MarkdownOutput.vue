@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { marked } from "marked";
 import { computed } from "vue";
-import "../assets/github-markdown.css";
-
 const props = defineProps(["content"]);
 const tranformMarkdown = computed(() => marked.parse(props.content));
 </script>
