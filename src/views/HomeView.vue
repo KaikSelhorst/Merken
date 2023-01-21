@@ -1,5 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Workbranch from "@/components/WorkBranch.vue";
+</script>
 
 <template>
-  <main></main>
+  <main>
+    <Workbranch />
+  </main>
 </template>
