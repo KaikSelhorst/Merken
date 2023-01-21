@@ -1,0 +1,24 @@
+* {
+  list-style: none;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "JetBrains Mono", monospace;
+}
+
+:root {
+  --background: #1a1a1a;
+}
+
+body {
+  background: var(--background);
+}
+
+a.router-link-exact-active {
+  color: #42b883 !important;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
