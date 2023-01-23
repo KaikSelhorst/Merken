@@ -14,13 +14,13 @@ Step by step instructions on how to use the application
 _In this project is necessary install Node.js for use a next commands_
 
 ```bash
-$ npm install    // Install all dependencies
+$ npm install    # Install all dependencies
 
-// Exist 3 options for  project startup
+# Exist 3 options for  project startup
 
-$ npm run dev    // Developement mode
-$ npm run build  // Production mode
-$ npm run lint   // Use diferent lint config
+$ npm run dev    # Developement mode
+$ npm run build  # Production mode
+$ npm run lint   # Use diferent lint config
 ```
 
 ### Tools
