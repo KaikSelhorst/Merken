@@ -1,51 +1,22 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import { onBeforeRouteUpdate, useRouter } from "vue-router";
-import type { Workspace } from "env";
+import { computed } from "vue";
+import { marked } from "marked";
 
-import MarkdownInput from "./MarkdownInput.vue";
-import MarkdownOutput from "./MarkdownOutput.vue";
+const props = defineProps(["content"]);
+defineEmits(["update:content"]);
 
-const router = useRouter();
-const activeRoute = ref(Number(router.currentRoute.value.params.id));
-const workContent = ref("");
-
-const getLocal = (): Array<Workspace> | undefined => {
-  const local = localStorage.getItem("workspaces");
-  if (local) return JSON.parse(local);
-};
-
-const getContentByID = (id: number) => {
-  const local = getLocal();
-  if (local) {
-    const content = local.filter((el) => (el.id === id ? true : false))[0];
-    if (content) workContent.value = content.content;
-    else router.push("/workspace/0");
-  }
-};
-
-const updateContent = (id: number, content: string) => {
-  const local = getLocal();
-  if (local) {
-    local.forEach((el) => (el.id === id ? (el.content = content) : null));
-  }
-  localStorage.setItem("workspaces", JSON.stringify(local));
-};
-
-watch(workContent, () => updateContent(activeRoute.value, workContent.value));
-
-onBeforeRouteUpdate((to) => {
-  activeRoute.value = Number(to.params.id);
-  getContentByID(activeRoute.value);
-});
-
-getContentByID(activeRoute.value);
+const tranformMarkdown = computed(() => marked.parse(props.content));
 </script>
 
 <template>
   <section>
-    <MarkdownInput v-model:content="workContent" />
-    <MarkdownOutput :content="workContent" />
+    <textarea
+      :value="content"
+      @input="
+        $emit('update:content', ($event.target as HTMLTextAreaElement).value)
+      "
+    ></textarea>
+    <div v-html="tranformMarkdown" class="markdown-body"></div>
   </section>
 </template>
 
@@ -56,5 +27,20 @@ section {
   min-height: 88vh;
   gap: 8px;
   grid-template-columns: 1fr 1fr;
+}
+
+textarea {
+  font-size: 1rem;
+  background: #2f2f2f;
+  resize: none;
+  color: rgba(255, 255, 255, 0.87);
+  outline: none;
+}
+
+section > * {
+  padding: 8px 12px;
+  max-width: calc(50vw - 24px);
+  border-radius: 2px;
+  border: 1px solid rgba(84, 84, 84, 0.48);
 }
 </style>
