@@ -1,46 +1,46 @@
-# merken
+# Merken
 
-This template should help get you started developing with Vue 3 in Vite.
+### Description
 
-## Recommended IDE Setup
+A simple code editor for Markdown with GITHUB theme.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+### Prerequisites
 
-## Type Support for `.vue` Imports in TS
+Step by step instructions on how to use the application
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+- [Node.js](https://nodejs.org/en/)
+- [Vscode TypeScript Vue Plugin(volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) Type Support for .vue Imports in TS
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+_In this project is necessary install Node.js for use a next commands_
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+```bash
+$ npm install    // Install all dependencies
 
-## Customize configuration
+// Exist 3 options for  project startup
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+$ npm run dev    // Developement mode
+$ npm run build  // Production mode
+$ npm run lint   // Use diferent lint config
 ```
 
-### Compile and Hot-Reload for Development
+### Tools
 
-```sh
-npm run dev
-```
+| Tool       | Documentation                                |
+| ---------- | -------------------------------------------- |
+| Marked     | [Version 4](https://marked.js.org/)          |
+| Vue.js     | [Version 3](https://vuejs.org/)              |
+| Vue Router | [Version 4](https://router.vuejs.org/)       |
+| Vite       | [Version 4](https://vitejs.dev/)             |
+| TypeScript | [Version 4](https://www.typescriptlang.org/) |
 
-### Type-Check, Compile and Minify for Production
+### License
 
-```sh
-npm run build
-```
+Koorst © 2021 - 22 // Some reserved rights.
 
-### Lint with [ESLint](https://eslint.org/)
+### Contact
 
-```sh
-npm run lint
-```
+Contact by my social networks that are in my [README](https://github.com/KaikSelhorst)
+
+<a href='https://github.com/KaikSelhorst' target='_blank'>
+  <img src='https://avatars.githubusercontent.com/u/82120356?v=4'  width=80 alt='Kaik Selhorst Picture (Fox)' title='Kaik Selhorst'/>
+</a>
