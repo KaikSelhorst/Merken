@@ -1,46 +1,80 @@
 <script setup lang="ts">
+import { getLocal, setLocal, goTo } from "@/helpers";
 import { ref } from "vue";
-import { RouterLink } from "vue-router";
-import type { Workspace } from "env";
+import { RouterLink, useRouter } from "vue-router";
 
-const setLocal = (value: any) => {
-  localStorage.setItem("workspaces", JSON.stringify(value));
+const removeAllWorks = () => {
+  if (window.confirm("Delete all Workbranch ?")) updateAllConf();
 };
 
-const getLocal = (): Array<Workspace> => {
-  const local = localStorage.getItem("workspaces");
-  if (local === null) {
-    setLocal([{ id: 0, content: "" }]);
-    return JSON.parse(localStorage.getItem("workspaces")!);
-  } else return JSON.parse(local);
+const removeWorkLocal = (id: number) => {
+  local.value.forEach((work, index) => {
+    if (work.id === id) local.value.splice(index, 1);
+  });
+  setLocal(local.value);
 };
 
-const addItemLocal = (id: number) => {
-  const local = getLocal();
-  local.push({ id, content: "" });
-  setLocal(local);
-};
-
-const addWorkspace = () => {
-  if (id <= 5) {
-    items.value.push(id);
-    addItemLocal(id);
-    id++;
+const removeWork = (event: MouseEvent) => {
+  const work = event.target;
+  if (work && work instanceof HTMLElement) {
+    local.value = getLocal();
+    const idWork = Number(work.innerHTML);
+    if (window.confirm(`Do you want to delete Workspace ${idWork}?`)) {
+      items.value.splice(items.value.indexOf(idWork), 1);
+      removeWorkLocal(idWork);
+      eventRemove();
+      id = updateID();
+    }
+    if (items.value.length === 0) return updateAllConf();
+    if (+router.currentRoute.value.params.id === idWork) goTo(id - 1);
   }
 };
 
-const getWorkspaces = () => {
-  const arrItems: number[] = [];
-  getLocal().forEach((item) => arrItems.push(item.id));
-  return arrItems;
+const eventRemove = () => {
+  const workspaces = document.querySelectorAll<HTMLElement>("header nav > a");
+  deleteMode.value = !deleteMode.value;
+  if (workspaces.length && deleteMode.value) {
+    workspaces.forEach((a) => a.addEventListener("click", removeWork));
+  } else {
+    workspaces.forEach((a) => a.removeEventListener("click", removeWork));
+  }
 };
 
-const items = ref(getWorkspaces());
-let id = items.value.length;
+const addWorkInLocal = (id: number) => {
+  local.value = getLocal();
+  local.value.push({ id, content: "" });
+  setLocal(local.value);
+};
+
+const updateAllConf = () => {
+  setLocal([{ id: 0, content: "" }]);
+  local.value = getLocal();
+  items.value = getWorkspacesID();
+  id = updateID();
+  goTo(0);
+};
+
+const eventAdd = () => {
+  if (items.value.length <= 5) {
+    items.value.push(id);
+    addWorkInLocal(id);
+    goTo(id);
+    id = updateID();
+  }
+};
+
+const updateID = () => items.value.slice(-1)[0] + 1;
+const getWorkspacesID = () => local.value.map(({ id }) => id);
+
+const local = ref(getLocal());
+const items = ref(getWorkspacesID());
+let id = updateID();
+const router = useRouter();
+let deleteMode = ref(false);
 </script>
 
 <template>
-  <header>
+  <header :class="['header', { 'delete-mode': deleteMode }]">
     <nav>
       <RouterLink
         :to="{ name: 'workspace', params: { id: item } }"
@@ -50,7 +84,12 @@ let id = items.value.length;
         {{ item }}
       </RouterLink>
     </nav>
-    <button @click="addWorkspace">+</button>
+    <div class="controlers">
+      <button @click="eventRemove" v-if="deleteMode">👍</button>
+      <button @click="eventRemove" v-else>-</button>
+      <button @click="eventAdd">+</button>
+      <button @click="removeAllWorks">🗑️</button>
+    </div>
   </header>
 </template>
 
@@ -62,8 +101,15 @@ header {
   border: 1px solid rgba(84, 84, 84, 0.48);
   border-radius: 2px;
 }
+.controlers {
+  display: flex;
+  align-items: center;
+}
 header :is(a, button) {
   color: rgba(255, 255, 255, 0.87);
+}
+header.delete-mode a {
+  color: #f07178;
 }
 a {
   font-size: 1.125rem;

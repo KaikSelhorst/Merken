@@ -1,31 +1,27 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import { useRouter, onBeforeRouteUpdate } from "vue-router";
-import type { Workspace } from "env";
-
+import { useRouter } from "vue-router";
+import { getLocal, setLocal, goTo } from "@/helpers";
 import Workbranch from "@/components/WorkBranch.vue";
 
 const getID = () => +router.currentRoute.value.params.id;
-const getLocal = (): Array<Workspace> | undefined => {
-  const local = localStorage.getItem("workspaces");
-  if (local) return JSON.parse(local);
-};
 
 const router = useRouter();
 const idWork = ref(getID());
 const contentWork = ref("");
 const localWorkspace = ref(getLocal());
 
-const setLocal = (local: unknown) => {
-  localStorage.setItem("workspaces", JSON.stringify(local));
-};
-
 const getContentByID = () => {
   if (localWorkspace.value) {
+    let exist = false;
     localWorkspace.value.forEach((work) => {
-      if (work.id === idWork.value) contentWork.value = work.content;
+      if (work.id === idWork.value) {
+        contentWork.value = work.content;
+        exist = true;
+      }
     });
-  } else router.push("/workspace/0");
+    if (!exist) goTo(0);
+  }
 };
 
 const updateContent = () => {
@@ -38,11 +34,17 @@ const updateContent = () => {
 };
 
 watch(contentWork, () => updateContent());
-onBeforeRouteUpdate((to) => {
-  localWorkspace.value = getLocal();
-  idWork.value = +to.params.id;
-  getContentByID();
-});
+watch(
+  () => router.currentRoute.value.params.id,
+  () => {
+    localWorkspace.value = getLocal();
+
+    idWork.value = +router.currentRoute.value.params.id;
+    console.log(idWork.value);
+    getContentByID();
+  }
+);
+
 getContentByID();
 </script>
 
