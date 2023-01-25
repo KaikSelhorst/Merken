@@ -1,34 +1,13 @@
 <script setup lang="ts">
+import { getLocal, setLocal, goTo } from "@/helpers";
 import { ref } from "vue";
-import { RouterLink } from "vue-router";
-import type { Workspace } from "env";
+import { RouterLink, useRouter } from "vue-router";
 
-const setLocal = (value: any) => {
-  localStorage.setItem("workspaces", JSON.stringify(value));
-};
-
-const getLocal = (): Array<Workspace> => {
-  const local = localStorage.getItem("workspaces");
-  if (local === null) {
-    setLocal([{ id: 0, content: "" }]);
-    return JSON.parse(localStorage.getItem("workspaces")!);
-  } else return JSON.parse(local);
+const removeAllWorks = () => {
+  if (window.confirm("Delete all Workbranch ?")) updateAllConf();
 };
 
-const addItemLocal = (id: number) => {
-  local.value.push({ id, content: "" });
-  setLocal(local.value);
-};
-const deleteAll = () => {
-  const conf = window.confirm("Delete all Workbranch ?");
-  if (conf) {
-    setLocal([{ id: 0, content: "" }]);
-    local.value = getLocal();
-    items.value = getWorkspaces();
-    updateId();
-  }
-};
-const removeItemLocal = (id: number) => {
+const removeWorkLocal = (id: number) => {
   local.value.forEach((work, index) => {
     if (work.id === id) local.value.splice(index, 1);
   });
@@ -38,57 +17,59 @@ const removeItemLocal = (id: number) => {
 const removeWork = (event: MouseEvent) => {
   const work = event.target;
   if (work && work instanceof HTMLElement) {
+    local.value = getLocal();
     const idWork = Number(work.innerHTML);
-    const remove = window.confirm(`Do you want to delete Workspace ${idWork}?`);
-    if (remove) {
+    if (window.confirm(`Do you want to delete Workspace ${idWork}?`)) {
       items.value.splice(items.value.indexOf(idWork), 1);
-      removeItemLocal(idWork);
-      removeWorkspace();
-      updateId();
+      removeWorkLocal(idWork);
+      eventRemove();
+      id = updateID();
     }
-    if (items.value.length === 0) {
-      setLocal([{ id: 0, content: "" }]);
-      local.value = getLocal();
-      items.value = getWorkspaces();
-      updateId();
-    }
+    if (items.value.length === 0) return updateAllConf();
+    if (+router.currentRoute.value.params.id === idWork) goTo(id - 1);
   }
 };
 
-const removeWorkspace = () => {
-  const deleteBtn = document.getElementById("delete");
+const eventRemove = () => {
   const workspaces = document.querySelectorAll<HTMLElement>("header nav > a");
   deleteMode.value = !deleteMode.value;
-  if (!deleteBtn) return;
   if (workspaces.length && deleteMode.value) {
-    deleteBtn.innerHTML = "👍";
     workspaces.forEach((a) => a.addEventListener("click", removeWork));
   } else {
-    deleteBtn.innerHTML = "-";
     workspaces.forEach((a) => a.removeEventListener("click", removeWork));
   }
 };
 
-const addWorkspace = () => {
+const addWorkInLocal = (id: number) => {
+  local.value = getLocal();
+  local.value.push({ id, content: "" });
+  setLocal(local.value);
+};
+
+const updateAllConf = () => {
+  setLocal([{ id: 0, content: "" }]);
+  local.value = getLocal();
+  items.value = getWorkspacesID();
+  id = updateID();
+  goTo(0);
+};
+
+const eventAdd = () => {
   if (items.value.length <= 5) {
-    console.log(id);
     items.value.push(id);
-    addItemLocal(id);
-    updateId();
+    addWorkInLocal(id);
+    goTo(id);
+    id = updateID();
   }
 };
-const updateId = () => (id = items.value.slice(-1)[0] + 1);
 
-const getWorkspaces = () => {
-  const workItems: number[] = [];
-  local.value.forEach((work) => workItems.push(work.id));
-  return workItems;
-};
+const updateID = () => items.value.slice(-1)[0] + 1;
+const getWorkspacesID = () => local.value.map(({ id }) => id);
 
 const local = ref(getLocal());
-const items = ref(getWorkspaces());
-
-let id = items.value.slice(-1)[0] + 1;
+const items = ref(getWorkspacesID());
+let id = updateID();
+const router = useRouter();
 let deleteMode = ref(false);
 </script>
 
@@ -104,11 +85,10 @@ let deleteMode = ref(false);
       </RouterLink>
     </nav>
     <div class="controlers">
-      <button @click="removeWorkspace" title="Delete Workspace" id="delete">
-        -
-      </button>
-      <button @click="addWorkspace" title="Add Workspace">+</button>
-      <button @click="deleteAll" title="Delete All">🗑️</button>
+      <button @click="eventRemove" v-if="deleteMode">👍</button>
+      <button @click="eventRemove" v-else>-</button>
+      <button @click="eventAdd">+</button>
+      <button @click="removeAllWorks">🗑️</button>
     </div>
   </header>
 </template>
