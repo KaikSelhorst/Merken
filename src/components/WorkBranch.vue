@@ -24,7 +24,10 @@ if (!media) previewMode.value = true;
       class="markdown-body"
       v-show="previewMode"
     ></div>
-    <button @click="previewMode = !previewMode">Preview</button>
+    <button @click="previewMode = !previewMode" v-if="previewMode">
+      Return
+    </button>
+    <button @click="previewMode = !previewMode" v-else>Preview</button>
   </section>
 </template>
 
