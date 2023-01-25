@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { marked } from "marked";
 
 const props = defineProps(["content"]);
 defineEmits(["update:content"]);
 
 const tranformMarkdown = computed(() => marked.parse(props.content));
+const media = window.matchMedia("(max-width:1000px)").matches;
+const previewMode = ref(false);
+if (!media) previewMode.value = true;
 </script>
 
 <template>
@@ -16,7 +19,12 @@ const tranformMarkdown = computed(() => marked.parse(props.content));
         $emit('update:content', ($event.target as HTMLTextAreaElement).value)
       "
     ></textarea>
-    <div v-html="tranformMarkdown" class="markdown-body"></div>
+    <div
+      v-html="tranformMarkdown"
+      class="markdown-body"
+      v-show="previewMode"
+    ></div>
+    <button @click="previewMode = !previewMode">Preview</button>
   </section>
 </template>
 
@@ -42,5 +50,39 @@ section > * {
   max-width: calc(50vw - 24px);
   border-radius: 2px;
   border: 1px solid rgba(84, 84, 84, 0.48);
+}
+button {
+  display: none;
+}
+@media screen and (max-width: 1000px) {
+  section {
+    grid-template-columns: 1fr;
+  }
+  section > * {
+    grid-area: 1/1;
+    max-width: calc(100vw - 16px);
+  }
+  section > div {
+    overflow: hidden;
+  }
+  button {
+    display: block;
+    position: fixed;
+    right: 8px;
+    margin: 8px;
+    font-size: 1rem;
+    opacity: 0.5;
+    font-weight: 600;
+    transition: 0.3s all;
+    line-height: 1.5rem;
+    top: 54px;
+    color: #1a1a1a;
+    background: #42b883;
+    border: none;
+    z-index: 1000;
+  }
+  :is(button:hover, button:focus) {
+    opacity: 1;
+  }
 }
 </style>
