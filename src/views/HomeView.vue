@@ -40,7 +40,6 @@ watch(
     localWorkspace.value = getLocal();
 
     idWork.value = +router.currentRoute.value.params.id;
-    console.log(idWork.value);
     getContentByID();
   }
 );
