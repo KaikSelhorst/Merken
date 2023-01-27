@@ -19,15 +19,7 @@ if (!media) previewMode.value = true;
         $emit('update:content', ($event.target as HTMLTextAreaElement).value)
       "
     ></textarea>
-    <div
-      v-html="tranformMarkdown"
-      class="markdown-body"
-      v-show="previewMode"
-    ></div>
-    <button @click="previewMode = !previewMode" v-if="previewMode">
-      Return
-    </button>
-    <button @click="previewMode = !previewMode" v-else>Preview</button>
+    <div v-html="tranformMarkdown" class="markdown-body"></div>
   </section>
 </template>
 
@@ -54,9 +46,7 @@ section > * {
   border-radius: 2px;
   border: 1px solid rgba(84, 84, 84, 0.48);
 }
-button {
-  display: none;
-}
+
 @media screen and (max-width: 1000px) {
   section {
     grid-template-columns: 1fr;
@@ -66,26 +56,14 @@ button {
     max-width: calc(100vw - 16px);
   }
   section > div {
-    overflow: hidden;
+    /* Fix That */
+    max-height: 88vh;
+    overflow: auto;
+    /* --- */
+    display: none;
   }
-  button {
-    display: block;
-    position: fixed;
-    right: 8px;
-    margin: 8px;
-    font-size: 1rem;
-    opacity: 0.5;
-    font-weight: 600;
-    transition: 0.3s all;
-    line-height: 1.5rem;
-    top: 54px;
-    color: #1a1a1a;
-    background: #42b883;
-    border: none;
-    z-index: 1000;
-  }
-  :is(button:hover, button:focus) {
-    opacity: 1;
+  .preview-mode section > div {
+    display: initial;
   }
 }
 </style>

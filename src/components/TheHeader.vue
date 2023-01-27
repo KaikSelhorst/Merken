@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { getLocal, setLocal, goTo } from "@/helpers";
 import { ref } from "vue";
 import { RouterLink, useRouter } from "vue-router";
+import { getLocal, setLocal, goTo } from "@/helpers";
+import PreviewButton from "./PreviewButton.vue";
 
 const removeAllWorks = () => {
   if (window.confirm("Delete all Workbranch ?")) updateAllConf();
@@ -89,6 +90,7 @@ let deleteMode = ref(false);
       <button @click="eventRemove" v-else>-</button>
       <button @click="eventAdd">+</button>
       <button @click="removeAllWorks">🗑️</button>
+      <PreviewButton />
     </div>
   </header>
 </template>
