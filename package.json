@@ -13,6 +13,7 @@
   "dependencies": {
     "@types/marked": "^4.0.8",
     "marked": "^4.2.12",
+    "mitt": "^3.0.0",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },
