@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { marked } from "marked";
 
 const props = defineProps(["content"]);
 defineEmits(["update:content"]);
 
 const tranformMarkdown = computed(() => marked.parse(props.content));
+const media = window.matchMedia("(max-width:1000px)").matches;
+const previewMode = ref(false);
+if (!media) previewMode.value = true;
 </script>
 
 <template>
@@ -42,5 +45,25 @@ section > * {
   max-width: calc(50vw - 24px);
   border-radius: 2px;
   border: 1px solid rgba(84, 84, 84, 0.48);
+}
+
+@media screen and (max-width: 1000px) {
+  section {
+    grid-template-columns: 1fr;
+  }
+  section > * {
+    grid-area: 1/1;
+    max-width: calc(100vw - 16px);
+  }
+  section > div {
+    /* Fix That */
+    max-height: 88vh;
+    overflow: auto;
+    /* --- */
+    display: none;
+  }
+  .preview-mode section > div {
+    display: initial;
+  }
 }
 </style>
