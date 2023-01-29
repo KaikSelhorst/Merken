@@ -25,7 +25,7 @@ const onClick = (event: MouseEvent) => {
 </template>
 <style scoped>
 button {
-  color: rgb(235 235 235 / 60%);
+  color: var(--platinum);
   font-weight: 500;
   font-size: 0.75rem;
   display: flex;

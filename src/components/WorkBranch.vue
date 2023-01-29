@@ -34,16 +34,16 @@ section {
 
 textarea {
   font-size: 1rem;
-  background: #2f2f2f;
+  background: var(--jet);
   resize: none;
-  color: rgba(255, 255, 255, 0.87);
+  color: var(--white);
   outline: none;
 }
 
 section > * {
   padding: 8px 12px;
   border-radius: 2px;
-  border: 1px solid rgba(84, 84, 84, 0.48);
+  border: 1px solid var(--davys-gray);
 }
 
 @media screen and (max-width: 1000px) {
