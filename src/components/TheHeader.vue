@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { RouterLink, useRouter } from "vue-router";
+import emitter from "@/emitter";
 import { getLocal, setLocal, goTo } from "@/helpers";
 import PreviewButton from "./PreviewButton.vue";
-
-const removeAllWorks = () => {
-  if (window.confirm("Delete all Workbranch ?")) updateAllConf();
-};
+import SettingsButton from "./SettingsButton.vue";
 
 const removeWorkLocal = (id: number) => {
   local.value.forEach((work, index) => {
@@ -52,7 +50,6 @@ const updateAllConf = () => {
   local.value = getLocal();
   items.value = getWorkspacesID();
   id = updateID();
-  goTo(0);
 };
 
 const eventAdd = () => {
@@ -66,7 +63,7 @@ const eventAdd = () => {
 
 const updateID = () => items.value.slice(-1)[0] + 1;
 const getWorkspacesID = () => local.value.map(({ id }) => id);
-
+emitter.on("UPDATE_ALL", updateAllConf);
 const local = ref(getLocal());
 const items = ref(getWorkspacesID());
 let id = updateID();
@@ -89,8 +86,8 @@ let deleteMode = ref(false);
       <button @click="eventRemove" v-if="deleteMode">👍</button>
       <button @click="eventRemove" v-else>-</button>
       <button @click="eventAdd">+</button>
-      <button @click="removeAllWorks">🗑️</button>
       <PreviewButton />
+      <SettingsButton />
     </div>
   </header>
 </template>
@@ -121,8 +118,14 @@ a + a {
   margin-left: 4px;
 }
 button {
+  padding: 0px 2px;
+
+  transition: 0.3s all;
   font-size: 1.125rem;
   line-height: 1rem;
+}
+button + button {
+  margin-left: 4px;
 }
 button:hover {
   color: #42b883;

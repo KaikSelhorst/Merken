@@ -42,7 +42,6 @@ textarea {
 
 section > * {
   padding: 8px 12px;
-  max-width: calc(50vw - 24px);
   border-radius: 2px;
   border: 1px solid rgba(84, 84, 84, 0.48);
 }
