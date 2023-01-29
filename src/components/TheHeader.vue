@@ -65,10 +65,10 @@ const eventAdd = () => {
   }
 };
 
-const updateID = () => items.value.slice(-1)[0] + 1;
-const getWorkspacesID = () => local.value.map(({ id }) => id);
 emitter.on("UPDATE_ALL", updateAllConf);
 const local = ref(getLocal<Workspace[]>("workspaces"));
+const updateID = () => items.value.slice(-1)[0] + 1;
+const getWorkspacesID = () => local.value.map(({ id }) => id);
 const items = ref(getWorkspacesID());
 let id = updateID();
 const router = useRouter();

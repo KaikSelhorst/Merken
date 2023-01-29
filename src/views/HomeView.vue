@@ -12,7 +12,7 @@ const getID = () => +router.currentRoute.value.params.id;
 const router = useRouter();
 const idWork = ref(getID());
 const contentWork = ref("");
-const localWorkspace = ref(getLocal<Workspace[]>("Workspaces"));
+const localWorkspace = ref(getLocal<Workspace[]>("workspaces"));
 
 const getContentByID = () => {
   if (localWorkspace.value) {
@@ -40,6 +40,7 @@ watch(contentWork, () => updateContent());
 watch(
   () => router.currentRoute.value.params.id,
   () => {
+    console.log(2);
     localWorkspace.value = getLocal<Workspace[]>("workspaces");
 
     idWork.value = +router.currentRoute.value.params.id;
