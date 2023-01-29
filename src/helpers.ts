@@ -1,14 +1,18 @@
-import type { Workspace } from "env";
 import router from "./router";
 
-export const getLocal = (): Workspace[] => {
-  const local = localStorage.getItem("workspaces")!;
+// export const getLocal = (): Workspace[] => {
+//   const local = localStorage.getItem("workspaces")!;
+//   return JSON.parse(local);
+// };
+
+export const getLocal = <T>(localName: string): T => {
+  const local = localStorage.getItem(localName)!;
   return JSON.parse(local);
 };
 
-export const setLocal = (value: unknown) => {
+export const setLocal = (localName: string, value: unknown) => {
   const valueToString = JSON.stringify(value);
-  localStorage.setItem("workspaces", valueToString);
+  localStorage.setItem(localName, valueToString);
 };
 
 export const goTo = (id: number) => {
