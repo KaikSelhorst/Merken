@@ -1,16 +1,21 @@
 @import url("./settings.css");
-
-* {
-  list-style: none;
-  box-sizing: border-box;
-  text-decoration: none;
-  margin: 0;
-  padding: 0;
+@import url("./colors.css");
+html {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+* {
+  list-style: none;
+  font-family: monospace;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: inherit;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
-  --background: #1a1a1a;
+  --background: var(--eerie-black);
 }
 
 body {
@@ -19,7 +24,7 @@ body {
 }
 
 a.router-link-exact-active {
-  color: #42b883 !important;
+  color: var(--mint) !important;
 }
 
 button {
@@ -35,13 +40,13 @@ button {
 }
 html {
   scrollbar-width: thin;
-  scrollbar-color: #424242 #424242;
+  scrollbar-color: var(--onyx) var(--onyx);
 }
 ::-webkit-scrollbar-track {
-  background: #424242;
+  background: var(--onyx);
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #7b7b7b;
+  background-color: var(--gray-web);
   border-radius: 6px;
-  border: 3px solid #424242;
+  border: 3px solid var(--onyx);
 }
