@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import { onMounted } from "vue";
 import emitter from "@/emitter";
-
 import type { UserConfig } from "env";
 import { getLocal } from "@/helpers";
 
 import SecondaryTitle from "../SecondaryTitle.vue";
 import ButtonLarge from "@/components/ButtonLarge.vue";
+import ButtonCustom from "../ButtonCustom.vue";
 
 const handleFamilyButtons = () => {
   const btns = document.querySelectorAll<HTMLElement>("#family-list button");
@@ -14,11 +15,17 @@ const handleFamilyButtons = () => {
 
 const onClick = (event: Event) => {
   const element = event.currentTarget;
-  handleFamilyButtons();
   if (element && element instanceof HTMLElement) {
-    element.classList.add("active");
     emitter.emit("UPDATE_USER_CONFIG", { family: element.innerHTML });
   }
+};
+const handleEventChange = (family: unknown) => {
+  if (!(typeof family === "string")) return;
+  handleFamilyButtons();
+  if (fontFamily.includes(family)) {
+    const activeEl = document.getElementById(family);
+    if (activeEl) activeEl.classList.add("active");
+  } else emitter.emit("FAMILY_IS_CUSTOM", family);
 };
 
 const fontFamily = [
@@ -31,9 +38,11 @@ const fontFamily = [
   "Roboto",
   "Ubuntu",
   "Helvetica",
-  "Custom",
 ];
+emitter.on("FAMILY_HAS_CHANGED", handleEventChange);
+
 const { family: initialFamily } = getLocal<UserConfig>("config");
+onMounted(() => handleEventChange(initialFamily));
 </script>
 
 <template>
@@ -41,12 +50,12 @@ const { family: initialFamily } = getLocal<UserConfig>("config");
     <SecondaryTitle icon="font">Font-Family</SecondaryTitle>
     <ul id="family-list">
       <li v-for="family in fontFamily" :key="family">
-        <ButtonLarge
-          @click="onClick"
-          :class="{ active: family === initialFamily }"
-        >
+        <ButtonLarge @click="onClick" :id="family">
           {{ family }}
         </ButtonLarge>
+      </li>
+      <li>
+        <ButtonCustom />
       </li>
     </ul>
   </div>

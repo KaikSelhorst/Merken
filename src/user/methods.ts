@@ -1,3 +1,5 @@
+import emitter from "@/emitter";
+
 const ELEMENT_TO_STYLE = document.documentElement.style;
 
 const changeFont = (font: string) => {
@@ -6,6 +8,7 @@ const changeFont = (font: string) => {
 
 const changeFamily = (family: string) => {
   ELEMENT_TO_STYLE.fontFamily = `${family}, monospace`;
+  emitter.emit("FAMILY_HAS_CHANGED", family);
 };
 
 const methods: { [config: string]: any } = {
