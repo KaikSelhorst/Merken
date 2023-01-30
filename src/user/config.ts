@@ -7,7 +7,7 @@ import type { UserConfig } from "env";
 const handleUpdate = (value: unknown) => {
   if (!value || ["string", "number", "boolean"].includes(typeof value)) return;
   const configObj = value as { [key: string]: string };
-  const configName = Object.keys(value)[0];
+  const configName = Object.keys(configObj)[0];
   const configValue = configObj[configName];
 
   if (configName in config && configName in methods) {
