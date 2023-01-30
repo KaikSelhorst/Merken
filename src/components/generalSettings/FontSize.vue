@@ -9,12 +9,12 @@ import SecondaryTitle from "../SecondaryTitle.vue";
 import ButtonSmall from "@/components/ButtonSmall.vue";
 
 const onSubmit = () => {
-  if (Number(fontSize.value) > 0.6 && Number(fontSize.value) < 2.6)
+  if (fontSize.value > 0.6 && fontSize.value < 2.6)
     emitter.emit("UPDATE_USER_CONFIG", { font: String(fontSize.value) });
 };
 
 const { font } = getLocal<UserConfig>("config");
-const fontSize = ref(font);
+const fontSize = ref(Number(font));
 </script>
 
 <template>

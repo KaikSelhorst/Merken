@@ -1,10 +1,5 @@
 import router from "./router";
 
-// export const getLocal = (): Workspace[] => {
-//   const local = localStorage.getItem("workspaces")!;
-//   return JSON.parse(local);
-// };
-
 export const getLocal = <T>(localName: string): T => {
   const local = localStorage.getItem(localName)!;
   return JSON.parse(local);
