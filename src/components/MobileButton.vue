@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import emitter from "@/emitter";
 import { outsideClick } from "@/helpers";
 
