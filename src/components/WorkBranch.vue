@@ -42,6 +42,7 @@ textarea {
 
 section > * {
   padding: 8px 12px;
+  max-width: 50vw;
   border-radius: 2px;
   border: 1px solid var(--davys-gray);
 }

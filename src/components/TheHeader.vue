@@ -7,8 +7,8 @@ import emitter from "@/emitter";
 import type { Workspace } from "env";
 import { getLocal, setLocal, goTo } from "@/helpers";
 
-import PreviewButton from "./PreviewButton.vue";
-import SettingsButton from "./SettingsButton.vue";
+import PreviewButton from "./buttons/PreviewButton.vue";
+import SettingsButton from "./buttons/SettingsButton.vue";
 
 const removeWorkLocal = (id: number) => {
   local.value.forEach((work, index) => {

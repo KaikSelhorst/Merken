@@ -2,10 +2,13 @@
 import { ref } from "vue";
 import emitter from "@/emitter";
 import ButtonLarge from "./ButtonLarge.vue";
+import BaseInput from "./BaseInput.vue";
 
 const onSubmit = () => {
   open.value = false;
-  emitter.emit("UPDATE_USER_CONFIG", { family: customFont.value });
+  if (customFont.value) {
+    emitter.emit("UPDATE_USER_CONFIG", { family: customFont.value });
+  }
 };
 
 emitter.on("FAMILY_IS_CUSTOM", (state) => (isCustom.value = state as boolean));
@@ -22,12 +25,7 @@ const isCustom = ref(false);
   <Teleport to="body">
     <form class="modal" v-if="open" @submit.prevent="onSubmit">
       <label for="font-name">Custom Font</label>
-      <input
-        type="text"
-        v-model="customFont"
-        id="font-name"
-        placeholder="Font Name"
-      />
+      <BaseInput v-model="customFont" label="Font Name" type="text" />
       <p>
         Make sure you have the font installed on your computer before applying
       </p>
