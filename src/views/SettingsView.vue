@@ -72,7 +72,7 @@ aside,
 aside a {
   color: var(--platinum);
   line-height: 1.25rem;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 0.8125rem;
 }
 main {
