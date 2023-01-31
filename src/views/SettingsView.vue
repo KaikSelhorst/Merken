@@ -13,7 +13,7 @@ query.addEventListener("change", () => (isMobile.value = query.matches));
 onBeforeRouteUpdate((to) => {
   isRoot.value = to.matched.length === 1 ? true : false;
 });
-emitter.on("settings-mobile", () => (mobileMenu.value = !mobileMenu.value));
+emitter.on("settings-mobile", (state) => (mobileMenu.value = state as boolean));
 
 const menuOptions = ["General", "Theme"];
 const mobileMenu = ref(false);
@@ -22,12 +22,19 @@ const isMobile = ref(query.matches);
 
 <template>
   <section>
-    <aside :class="{ active: mobileMenu }">
-      <MobileButton emitted-name="settings-mobile" v-if="isMobile" />
+    <aside :class="{ active: mobileMenu }" id="aside">
+      <MobileButton
+        emitted-name="settings-mobile"
+        controls="#aside"
+        v-if="isMobile"
+      />
       <nav>
         <ul>
           <li v-for="(option, index) in menuOptions" :key="index">
-            <RouterLink :to="{ name: option.toLocaleLowerCase() }">
+            <RouterLink
+              @click="mobileMenu = false"
+              :to="{ name: option.toLocaleLowerCase() }"
+            >
               {{ option }}
             </RouterLink>
           </li>
