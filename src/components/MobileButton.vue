@@ -7,14 +7,24 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  controls: {
+    type: String,
+    required: true,
+  },
 });
 
-const emitterMobileEvent = () => emitter.emit(props.emittedName);
+const emitterEvent = (state: boolean) => emitter.emit(props.emittedName, state);
+
 const onClick = (event: MouseEvent) => {
+  event.preventDefault();
   const clickElement = event.currentTarget;
   if (clickElement && clickElement instanceof HTMLElement) {
-    emitterMobileEvent();
-    outsideClick(clickElement, ["click", "touchstart"], emitterMobileEvent);
+    emitterEvent(true);
+    outsideClick(
+      document.querySelector(props.controls)!,
+      ["click", "touchstart"],
+      () => emitterEvent(false)
+    );
   }
 };
 </script>
