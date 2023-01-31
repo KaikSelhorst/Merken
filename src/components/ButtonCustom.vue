@@ -8,20 +8,17 @@ const onSubmit = () => {
   emitter.emit("UPDATE_USER_CONFIG", { family: customFont.value });
 };
 
+emitter.on("FAMILY_IS_CUSTOM", (state) => (isCustom.value = state as boolean));
+
 const open = ref(false);
 const customFont = ref("");
-
-emitter.on("FAMILY_IS_CUSTOM", (family) => {
-  if (typeof family === "string") {
-    customFont.value = family;
-    const btn = document.getElementById("custom")!;
-    setTimeout(() => btn.classList.add("active"));
-  }
-});
+const isCustom = ref(false);
 </script>
 
 <template>
-  <ButtonLarge @click="open = true" id="custom">Custom</ButtonLarge>
+  <ButtonLarge @click="open = true" id="custom" :class="{ active: isCustom }">
+    Custom
+  </ButtonLarge>
   <Teleport to="body">
     <form class="modal" v-if="open" @submit.prevent="onSubmit">
       <label for="font-name">Custom Font</label>

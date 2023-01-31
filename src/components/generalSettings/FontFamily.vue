@@ -1,17 +1,13 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import emitter from "@/emitter";
 import type { UserConfig } from "env";
 import { getLocal } from "@/helpers";
+import { familys } from "@/user/methods";
 
 import SecondaryTitle from "../SecondaryTitle.vue";
 import ButtonLarge from "@/components/ButtonLarge.vue";
 import ButtonCustom from "../ButtonCustom.vue";
-
-const handleFamilyButtons = () => {
-  const btns = document.querySelectorAll<HTMLElement>("#family-list button");
-  if (btns) btns.forEach((btn) => btn.classList.remove("active"));
-};
 
 const onClick = (event: Event) => {
   const element = event.currentTarget;
@@ -20,37 +16,33 @@ const onClick = (event: Event) => {
   }
 };
 const handleEventChange = (family: unknown) => {
-  if (!(typeof family === "string")) return;
-  handleFamilyButtons();
-  if (fontFamily.includes(family)) {
-    const activeEl = document.getElementById(family);
-    if (activeEl) activeEl.classList.add("active");
-  } else emitter.emit("FAMILY_IS_CUSTOM", family);
+  if (typeof family === "string") {
+    activeFamily.value = family;
+    if (!familys.includes(family)) isCustom(true);
+    else isCustom(false);
+  }
+};
+const isCustom = (state: boolean) => {
+  emitter.emit("FAMILY_IS_CUSTOM", state);
 };
 
-const fontFamily = [
-  "Roboto Mono",
-  "Segoe UI",
-  "Fira Code",
-  "IBM Plex Mono",
-  "JetBrains Mono",
-  "Source Code Pro",
-  "Roboto",
-  "Ubuntu",
-  "Helvetica",
-];
 emitter.on("FAMILY_HAS_CHANGED", handleEventChange);
-
-const { family: initialFamily } = getLocal<UserConfig>("config");
-onMounted(() => handleEventChange(initialFamily));
+let activeFamily = ref(getLocal<UserConfig>("config").family);
+onMounted(() => {
+  if (!familys.includes(activeFamily.value)) isCustom(true);
+});
 </script>
 
 <template>
   <div>
     <SecondaryTitle icon="font">Font-Family</SecondaryTitle>
     <ul id="family-list">
-      <li v-for="family in fontFamily" :key="family">
-        <ButtonLarge @click="onClick" :id="family">
+      <li v-for="family in familys" :key="family">
+        <ButtonLarge
+          @click="onClick"
+          :id="family"
+          :class="{ active: family === activeFamily }"
+        >
           {{ family }}
         </ButtonLarge>
       </li>
