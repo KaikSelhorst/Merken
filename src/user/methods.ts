@@ -14,7 +14,7 @@ const changeFamily = (family: string) => {
 };
 
 const changeTheme = (theme: string) => {
-  console.log(theme);
+  document.documentElement.dataset.theme = theme.toLocaleLowerCase();
 };
 const methods: { [config: string]: any } = {
   font: changeFont,
