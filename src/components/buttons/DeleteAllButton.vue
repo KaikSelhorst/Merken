@@ -12,10 +12,10 @@ const onClick = () => {
 </template>
 <style scoped>
 button {
-  background: #ff5252;
+  background: var(--orange-crayola);
   padding: 8px 16px;
   display: block;
-  color: rgb(255 255 255 / 87%);
+  color: var(--white);
   font-weight: 500;
   border-radius: 2px;
 }

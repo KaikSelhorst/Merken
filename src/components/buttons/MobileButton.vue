@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import emitter from "@/emitter";
 import { outsideClick } from "@/helpers";
 
@@ -8,14 +7,24 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  controls: {
+    type: String,
+    required: true,
+  },
 });
 
-const emitterMobileEvent = () => emitter.emit(props.emittedName);
+const emitterEvent = (state: boolean) => emitter.emit(props.emittedName, state);
+
 const onClick = (event: MouseEvent) => {
+  event.preventDefault();
   const clickElement = event.currentTarget;
   if (clickElement && clickElement instanceof HTMLElement) {
-    emitterMobileEvent();
-    outsideClick(clickElement, ["click", "touchstart"], emitterMobileEvent);
+    emitterEvent(true);
+    outsideClick(
+      document.querySelector(props.controls)!,
+      ["click", "touchstart"],
+      () => emitterEvent(false)
+    );
   }
 };
 </script>
@@ -25,9 +34,10 @@ const onClick = (event: MouseEvent) => {
 </template>
 <style scoped>
 button {
-  color: rgb(235 235 235 / 60%);
+  color: var(--platinum);
   font-weight: 500;
   font-size: 0.75rem;
+  line-height: 1rem;
   display: flex;
   align-items: center;
 }
@@ -39,6 +49,7 @@ button::before {
   transition: transform 0.3s;
   width: 12px;
   margin-right: 4px;
+  margin-bottom: 1.5px;
   box-shadow: 0 4px, 0 -4px;
 }
 </style>

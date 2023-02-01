@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
+
+import type { Workspace } from "env";
 import { getLocal, setLocal, goTo } from "@/helpers";
+
 import Workbranch from "@/components/WorkBranch.vue";
 
 const getID = () => +router.currentRoute.value.params.id;
@@ -9,7 +12,7 @@ const getID = () => +router.currentRoute.value.params.id;
 const router = useRouter();
 const idWork = ref(getID());
 const contentWork = ref("");
-const localWorkspace = ref(getLocal());
+const localWorkspace = ref(getLocal<Workspace[]>("workspaces"));
 
 const getContentByID = () => {
   if (localWorkspace.value) {
@@ -30,14 +33,15 @@ const updateContent = () => {
       if (work.id === idWork.value) work.content = contentWork.value;
     });
   }
-  setLocal(localWorkspace.value);
+  setLocal("workspaces", localWorkspace.value);
 };
 
 watch(contentWork, () => updateContent());
 watch(
   () => router.currentRoute.value.params.id,
   () => {
-    localWorkspace.value = getLocal();
+    console.log(2);
+    localWorkspace.value = getLocal<Workspace[]>("workspaces");
 
     idWork.value = +router.currentRoute.value.params.id;
     getContentByID();

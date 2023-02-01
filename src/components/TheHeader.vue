@@ -1,22 +1,26 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { RouterLink, useRouter } from "vue-router";
+
 import emitter from "@/emitter";
+
+import type { Workspace } from "env";
 import { getLocal, setLocal, goTo } from "@/helpers";
-import PreviewButton from "./PreviewButton.vue";
-import SettingsButton from "./SettingsButton.vue";
+
+import PreviewButton from "./buttons/PreviewButton.vue";
+import SettingsButton from "./buttons/SettingsButton.vue";
 
 const removeWorkLocal = (id: number) => {
   local.value.forEach((work, index) => {
     if (work.id === id) local.value.splice(index, 1);
   });
-  setLocal(local.value);
+  setLocal("workspaces", local.value);
 };
 
 const removeWork = (event: MouseEvent) => {
   const work = event.target;
   if (work && work instanceof HTMLElement) {
-    local.value = getLocal();
+    local.value = getLocal<Workspace[]>("workspaces");
     const idWork = Number(work.innerHTML);
     if (window.confirm(`Do you want to delete Workspace ${idWork}?`)) {
       items.value.splice(items.value.indexOf(idWork), 1);
@@ -40,14 +44,14 @@ const eventRemove = () => {
 };
 
 const addWorkInLocal = (id: number) => {
-  local.value = getLocal();
+  local.value = getLocal<Workspace[]>("workspaces");
   local.value.push({ id, content: "" });
-  setLocal(local.value);
+  setLocal("workspaces", local.value);
 };
 
 const updateAllConf = () => {
-  setLocal([{ id: 0, content: "" }]);
-  local.value = getLocal();
+  setLocal("workspaces", [{ id: 0, content: "" }]);
+  local.value = getLocal<Workspace[]>("workspaces");
   items.value = getWorkspacesID();
   id = updateID();
 };
@@ -61,10 +65,10 @@ const eventAdd = () => {
   }
 };
 
+emitter.on("UPDATE_ALL", updateAllConf);
+const local = ref(getLocal<Workspace[]>("workspaces"));
 const updateID = () => items.value.slice(-1)[0] + 1;
 const getWorkspacesID = () => local.value.map(({ id }) => id);
-emitter.on("UPDATE_ALL", updateAllConf);
-const local = ref(getLocal());
 const items = ref(getWorkspacesID());
 let id = updateID();
 const router = useRouter();
@@ -97,7 +101,7 @@ header {
   display: flex;
   padding: 4px 12px;
   justify-content: space-between;
-  border: 1px solid rgba(84, 84, 84, 0.48);
+  border: 1px solid var(--davys-gray);
   border-radius: 2px;
 }
 .controlers {
@@ -105,10 +109,10 @@ header {
   align-items: center;
 }
 header :is(a, button) {
-  color: rgba(255, 255, 255, 0.87);
+  color: var(--white);
 }
 header.delete-mode a {
-  color: #f07178;
+  color: var(--orange-crayola);
 }
 a {
   font-size: 1.125rem;
@@ -128,6 +132,6 @@ button + button {
   margin-left: 4px;
 }
 button:hover {
-  color: #42b883;
+  color: var(--mint);
 }
 </style>

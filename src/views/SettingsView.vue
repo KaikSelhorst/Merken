@@ -2,8 +2,8 @@
 import { ref } from "vue";
 import { useRouter, onBeforeRouteUpdate } from "vue-router";
 import emitter from "@/emitter";
-import DeleteAllButton from "@/components/DeleteAllButton.vue";
-import MobileButton from "@/components/MobileButton.vue";
+import DeleteAllButton from "@/components/buttons/DeleteAllButton.vue";
+import MobileButton from "@/components/buttons/MobileButton.vue";
 
 const router = useRouter();
 const isRoot = ref(router.currentRoute.value.matched.length === 1);
@@ -13,7 +13,7 @@ query.addEventListener("change", () => (isMobile.value = query.matches));
 onBeforeRouteUpdate((to) => {
   isRoot.value = to.matched.length === 1 ? true : false;
 });
-emitter.on("settings-mobile", () => (mobileMenu.value = !mobileMenu.value));
+emitter.on("settings-mobile", (state) => (mobileMenu.value = state as boolean));
 
 const menuOptions = ["General", "Theme"];
 const mobileMenu = ref(false);
@@ -22,12 +22,19 @@ const isMobile = ref(query.matches);
 
 <template>
   <section>
-    <aside :class="{ active: mobileMenu }">
-      <MobileButton emitted-name="settings-mobile" v-if="isMobile" />
+    <aside :class="{ active: mobileMenu }" id="aside">
+      <MobileButton
+        emitted-name="settings-mobile"
+        controls="#aside"
+        v-if="isMobile"
+      />
       <nav>
         <ul>
           <li v-for="(option, index) in menuOptions" :key="index">
-            <RouterLink :to="{ name: option.toLocaleLowerCase() }">
+            <RouterLink
+              @click="mobileMenu = false"
+              :to="{ name: option.toLocaleLowerCase() }"
+            >
               {{ option }}
             </RouterLink>
           </li>
@@ -45,7 +52,7 @@ const isMobile = ref(query.matches);
 section {
   display: grid;
   border-radius: 2px;
-  border: 1px solid rgba(84, 84, 84, 0.48);
+  border: 1px solid var(--davys-gray);
   margin-top: 12px;
   grid-template-columns: 300px 1fr;
 }
@@ -63,13 +70,13 @@ nav button {
 }
 aside,
 aside a {
-  color: rgb(235 235 235 / 60%);
+  color: var(--platinum);
   line-height: 1.25rem;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 0.8125rem;
 }
 main {
-  color: rgb(255 255 255 / 87%);
+  color: var(--white);
   overflow: auto;
 }
 
@@ -92,11 +99,11 @@ main {
   }
   aside {
     position: relative;
-    border-bottom: 1px solid rgba(84, 84, 84, 0.48);
+    border-bottom: 1px solid var(--davys-gray);
   }
   aside nav {
-    border: 1px solid rgba(84, 84, 84, 0.48);
-    background: #1a1a1a;
+    border: 1px solid var(--davys-gray);
+    background: var(--eerie-black);
     height: calc(90vh - 10px);
     top: -1px;
     left: -1px;
