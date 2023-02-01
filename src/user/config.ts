@@ -33,6 +33,7 @@ const initialCheck = () => {
 let config: UserConfig = {
   font: "1",
   family: "Segoe UI",
+  theme: "Default",
 };
 
 initialCheck();

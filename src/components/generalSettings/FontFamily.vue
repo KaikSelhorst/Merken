@@ -9,12 +9,10 @@ import MediumTitle from "../MediumTitle.vue";
 import ButtonLarge from "@/components/buttons/ButtonLarge.vue";
 import ButtonCustom from "../buttons/ButtonCustom.vue";
 
-const onClick = (event: Event) => {
-  const element = event.currentTarget;
-  if (element && element instanceof HTMLElement) {
-    emitter.emit("UPDATE_USER_CONFIG", { family: element.innerHTML });
-  }
+const onClick = (family: string) => {
+  emitter.emit("UPDATE_USER_CONFIG", { family });
 };
+
 const handleEventChange = (family: unknown) => {
   if (typeof family === "string") {
     activeFamily.value = family;
@@ -36,10 +34,10 @@ onMounted(() => {
 <template>
   <div>
     <MediumTitle icon="font">Font-Family</MediumTitle>
-    <ul id="family-list">
+    <ul id="family-list" class="grid">
       <li v-for="family in familys" :key="family">
         <ButtonLarge
-          @click="onClick"
+          @click="onClick(family)"
           :id="family"
           :class="{ active: family === activeFamily }"
         >
@@ -54,28 +52,6 @@ onMounted(() => {
 </template>
 
 <style scoped>
-ul {
-  --columns: 4;
-  display: grid;
-  grid-template-columns: repeat(var(--columns), 1fr);
-  margin-top: 16px;
-  gap: 16px;
-}
-@media (max-width: 980px) {
-  ul {
-    --columns: 3;
-  }
-}
-@media (max-width: 700px) {
-  ul {
-    --columns: 2;
-  }
-}
-@media (max-width: 380px) {
-  ul {
-    --columns: 1;
-  }
-}
 button.active {
   background: var(--mint);
 }

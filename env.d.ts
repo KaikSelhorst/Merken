@@ -10,5 +10,5 @@ export interface Workspace {
 export interface UserConfig {
   font: string;
   family: string;
-  theme?: string;
+  theme: string;
 }

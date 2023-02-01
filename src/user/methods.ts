@@ -13,9 +13,13 @@ const changeFamily = (family: string) => {
   ELEMENT_TO_STYLE.fontFamily = `${family}, sans-serif`;
 };
 
+const changeTheme = (theme: string) => {
+  console.log(theme);
+};
 const methods: { [config: string]: any } = {
   font: changeFont,
   family: changeFamily,
+  theme: changeTheme,
 };
 
 export default methods;
