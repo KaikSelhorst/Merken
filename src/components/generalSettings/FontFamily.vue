@@ -58,7 +58,7 @@ ul {
   --columns: 4;
   display: grid;
   grid-template-columns: repeat(var(--columns), 1fr);
-  margin-top: 32px;
+  margin-top: 16px;
   gap: 16px;
 }
 @media (max-width: 980px) {

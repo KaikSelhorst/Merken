@@ -13,11 +13,12 @@ defineProps({
   </h2>
 </template>
 <style scoped>
-h2 span {
-  margin-left: 8px;
+h2 svg {
+  margin-right: 8px;
 }
 h2 {
   margin-top: 32px;
+  margin-bottom: 8px;
   font-size: 1.125rem;
   line-height: 1.5rem;
 }
