@@ -6,7 +6,7 @@ defineProps({
 
 <template>
   <h2>
-    <FontAwesome :icon="icon" />
+    <FontAwesome :icon="icon" v-if="icon" />
     <span>
       <slot></slot>
     </span>
