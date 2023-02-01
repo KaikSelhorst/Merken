@@ -5,10 +5,12 @@ import emitter from "@/emitter";
 import type { UserConfig } from "env";
 import { getLocal } from "@/helpers";
 
-import SecondaryTitle from "../SecondaryTitle.vue";
-import ButtonSmall from "@/components/ButtonSmall.vue";
+import MediumTitle from "../MediumTitle.vue";
+import ButtonSmall from "@/components/buttons/ButtonSmall.vue";
+import BaseInput from "../buttons/BaseInput.vue";
 
 const onSubmit = () => {
+  console.log(fontSize.value);
   if (fontSize.value > 0.6 && fontSize.value < 2.6)
     emitter.emit("UPDATE_USER_CONFIG", { font: String(fontSize.value) });
 };
@@ -19,10 +21,15 @@ const fontSize = ref(Number(font));
 
 <template>
   <div>
-    <SecondaryTitle icon="font">Font-Size</SecondaryTitle>
+    <MediumTitle icon="font">Font-Size</MediumTitle>
     <p>Change the font size of the application.</p>
     <form @submit.prevent="onSubmit">
-      <input type="text" v-model.number="fontSize" required />
+      <BaseInput
+        v-model.number="fontSize"
+        type="text"
+        required
+        label="1 = 16px"
+      />
       <ButtonSmall>
         <FontAwesome icon="save" />
       </ButtonSmall>

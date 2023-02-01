@@ -5,9 +5,9 @@ import type { UserConfig } from "env";
 import { getLocal } from "@/helpers";
 import { familys } from "@/user/methods";
 
-import SecondaryTitle from "../SecondaryTitle.vue";
-import ButtonLarge from "@/components/ButtonLarge.vue";
-import ButtonCustom from "../ButtonCustom.vue";
+import MediumTitle from "../MediumTitle.vue";
+import ButtonLarge from "@/components/buttons/ButtonLarge.vue";
+import ButtonCustom from "../buttons/ButtonCustom.vue";
 
 const onClick = (event: Event) => {
   const element = event.currentTarget;
@@ -35,7 +35,7 @@ onMounted(() => {
 
 <template>
   <div>
-    <SecondaryTitle icon="font">Font-Family</SecondaryTitle>
+    <MediumTitle icon="font">Font-Family</MediumTitle>
     <ul id="family-list">
       <li v-for="family in familys" :key="family">
         <ButtonLarge

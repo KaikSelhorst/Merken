@@ -2,8 +2,8 @@
 import { ref } from "vue";
 import { useRouter, onBeforeRouteUpdate } from "vue-router";
 import emitter from "@/emitter";
-import DeleteAllButton from "@/components/DeleteAllButton.vue";
-import MobileButton from "@/components/MobileButton.vue";
+import DeleteAllButton from "@/components/buttons/DeleteAllButton.vue";
+import MobileButton from "@/components/buttons/MobileButton.vue";
 
 const router = useRouter();
 const isRoot = ref(router.currentRoute.value.matched.length === 1);
