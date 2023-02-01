@@ -37,6 +37,7 @@ button {
   color: var(--platinum);
   font-weight: 500;
   font-size: 0.75rem;
+  line-height: 1rem;
   display: flex;
   align-items: center;
 }
@@ -48,6 +49,7 @@ button::before {
   transition: transform 0.3s;
   width: 12px;
   margin-right: 4px;
+  margin-bottom: 1.5px;
   box-shadow: 0 4px, 0 -4px;
 }
 </style>
