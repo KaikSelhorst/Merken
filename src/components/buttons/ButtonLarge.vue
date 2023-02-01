@@ -11,7 +11,7 @@ button {
   width: 100%;
   font-size: 0.875rem;
   font-weight: 500;
-  background: var(--davys-gray);
+  background: var(--jet);
   transition: 0.3s all;
   padding: 8px;
   color: var(--white);
