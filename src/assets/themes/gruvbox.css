@@ -1,0 +1,11 @@
+html[data-theme="gruvbox"] {
+  --mint: #fabd2f;
+  --orange-crayola: #fb4934;
+  --white: #ebdbb2;
+  /* --white: #fbf1c7; */
+  --onyx: #282828;
+  --eerie-black: #282828;
+  --jet: #212121;
+  --davys-gray: #504945;
+  --platinum: rgba(235, 235, 235, 60%);
+}
