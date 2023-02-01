@@ -2,7 +2,15 @@
 import ButtonLarge from "@/components/buttons/ButtonLarge.vue";
 import emitter from "@/emitter";
 
-const themes = ["Nord", "Vue", "Dracula", "Ballerini", "GruvBox", "Origamid"];
+const themes = [
+  "Nord",
+  "Vue",
+  "Dracula",
+  "Ballerini",
+  "GruvBox",
+  "Origamid",
+  "Default",
+];
 
 const onClick = (theme: string) => {
   emitter.emit("UPDATE_USER_CONFIG", { theme });
