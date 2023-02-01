@@ -8,7 +8,7 @@ import FontFamily from "@/components/generalSettings/FontFamily.vue";
     <article>
       <h1>General</h1>
       <p>
-        Make some modifications to your app, leaving it your way. =)
+        Make some modifications to your app, leaving it your way. *_*
       </p>
       <FontSize />
       <FontFamily />
