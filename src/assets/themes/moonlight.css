@@ -1,0 +1,10 @@
+html[data-theme="moonlight"] {
+  --mint: #c69f68;
+  --orange-crayola: #b81b2c;
+  --white: #ccccb5;
+  --onyx: #191f28;
+  --eerie-black: #191f28;
+  --jet: #141a22;
+  --davys-gray: #333333;
+  --platinum: rgba(235, 235, 235, 60%);
+}

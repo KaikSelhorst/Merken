@@ -13,6 +13,7 @@ const themes = [
   "Ballerini",
   "GruvBox",
   "Origamid",
+  "Moonlight",
   "Default",
 ];
 
