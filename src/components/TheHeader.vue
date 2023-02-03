@@ -24,7 +24,7 @@ document.onkeyup = function (event: KeyboardEvent) {
   }
   if (e.altKey && ["1", "2", "3", "4", "5", "6"].includes(e.key)) {
     const work = items.value[+e.key - 1];
-    if (work) goTo(work);
+    if (work || work == 0) goTo(work);
     return false;
   }
 };
