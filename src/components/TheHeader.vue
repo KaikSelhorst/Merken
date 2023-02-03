@@ -22,6 +22,11 @@ document.onkeyup = function (event: KeyboardEvent) {
     deleteMode.value = false;
     return false;
   }
+  if (e.altKey && ["1", "2", "3", "4", "5", "6"].includes(e.key)) {
+    const work = items.value[+e.key - 1];
+    if (work) goTo(work);
+    return false;
+  }
 };
 
 const removeWorkLocal = (id: number) => {
@@ -105,7 +110,7 @@ let deleteMode = ref(false);
 <style scoped>
 header {
   display: flex;
-  padding: 4px 12px;
+  padding: 4px;
   justify-content: space-between;
   border: 1px solid var(--davys-gray);
   border-radius: 2px;
@@ -122,7 +127,7 @@ header.delete-mode a {
 }
 a {
   font-size: 1.125rem;
-  padding: 4px;
+  padding: 4px 8px;
 }
 a + a {
   margin-left: 4px;
