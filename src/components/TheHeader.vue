@@ -34,7 +34,12 @@ const removeWorkLocal = (id: number) => {
 const removeWork = (idWork: number) => {
   if (!deleteMode.value) return false;
   local.value = getLocal<Workspace[]>("workspaces");
-  if (window.confirm(`Do you want to delete Workspace ${idWork}?`)) {
+  const isEmpty = !local.value.slice(-1)[0].content;
+  let confirmed;
+  if (!isEmpty) {
+    confirmed = window.confirm(`Do you want to delete Workspace ${idWork}?`);
+  }
+  if (isEmpty || confirmed) {
     items.value.splice(items.value.indexOf(idWork), 1);
     removeWorkLocal(idWork);
     id = updateID();
