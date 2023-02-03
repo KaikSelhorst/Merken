@@ -10,6 +10,20 @@ import { getLocal, setLocal, goTo } from "@/helpers";
 import PreviewButton from "./buttons/PreviewButton.vue";
 import SettingsButton from "./buttons/SettingsButton.vue";
 
+document.onkeyup = function (event: KeyboardEvent) {
+  const e = event || window.event;
+  if (e.ctrlKey && e.altKey && e.code == "KeyT") {
+    eventAdd();
+    return false;
+  }
+  if (e.ctrlKey && e.altKey && e.code == "KeyD") {
+    deleteMode.value = true;
+    removeWork(+router.currentRoute.value.params.id);
+    deleteMode.value = false;
+    return false;
+  }
+};
+
 const removeWorkLocal = (id: number) => {
   local.value.forEach((work, index) => {
     if (work.id === id) local.value.splice(index, 1);
@@ -17,30 +31,16 @@ const removeWorkLocal = (id: number) => {
   setLocal("workspaces", local.value);
 };
 
-const removeWork = (event: MouseEvent) => {
-  const work = event.target;
-  if (work && work instanceof HTMLElement) {
-    local.value = getLocal<Workspace[]>("workspaces");
-    const idWork = Number(work.innerHTML);
-    if (window.confirm(`Do you want to delete Workspace ${idWork}?`)) {
-      items.value.splice(items.value.indexOf(idWork), 1);
-      removeWorkLocal(idWork);
-      eventRemove();
-      id = updateID();
-    }
-    if (items.value.length === 0) return updateAllConf();
-    if (+router.currentRoute.value.params.id === idWork) goTo(id - 1);
+const removeWork = (idWork: number) => {
+  if (!deleteMode.value) return false;
+  local.value = getLocal<Workspace[]>("workspaces");
+  if (window.confirm(`Do you want to delete Workspace ${idWork}?`)) {
+    items.value.splice(items.value.indexOf(idWork), 1);
+    removeWorkLocal(idWork);
+    id = updateID();
   }
-};
-
-const eventRemove = () => {
-  const workspaces = document.querySelectorAll<HTMLElement>("header nav > a");
-  deleteMode.value = !deleteMode.value;
-  if (workspaces.length && deleteMode.value) {
-    workspaces.forEach((a) => a.addEventListener("click", removeWork));
-  } else {
-    workspaces.forEach((a) => a.removeEventListener("click", removeWork));
-  }
+  if (items.value.length === 0) return updateAllConf();
+  if (+router.currentRoute.value.params.id === idWork) goTo(id - 1);
 };
 
 const addWorkInLocal = (id: number) => {
@@ -82,13 +82,14 @@ let deleteMode = ref(false);
         :to="{ name: 'workspace', params: { id: item } }"
         v-for="item in items"
         :key="item"
+        @click="removeWork(item)"
       >
         {{ item }}
       </RouterLink>
     </nav>
     <div class="controlers">
-      <button @click="eventRemove" v-if="deleteMode">👍</button>
-      <button @click="eventRemove" v-else>-</button>
+      <button @click="deleteMode = false" v-if="deleteMode">👍</button>
+      <button @click="deleteMode = true" v-else>-</button>
       <button @click="eventAdd">+</button>
       <PreviewButton />
       <SettingsButton />
