@@ -11,6 +11,7 @@ import PreviewButton from "./buttons/PreviewButton.vue";
 import SettingsButton from "./buttons/SettingsButton.vue";
 
 document.onkeyup = function (event: KeyboardEvent) {
+  event.preventDefault();
   const e = event || window.event;
   if (e.ctrlKey && e.altKey && e.code == "KeyT") {
     eventAdd();
@@ -22,10 +23,17 @@ document.onkeyup = function (event: KeyboardEvent) {
     deleteMode.value = false;
     return false;
   }
-  if (e.altKey && ["1", "2", "3", "4", "5", "6"].includes(e.key)) {
+  if (e.ctrlKey && "123456".indexOf(e.key) !== -1) {
     const work = items.value[+e.key - 1];
     if (work || work == 0) goTo(work);
     return false;
+  }
+};
+
+document.onkeydown = function (e: KeyboardEvent) {
+  if ("123456".indexOf(e.key) != -1 && e.ctrlKey) {
+    e.preventDefault();
+    e.stopPropagation();
   }
 };
 
