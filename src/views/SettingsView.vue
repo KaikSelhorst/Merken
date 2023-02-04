@@ -2,17 +2,19 @@
 import { ref } from "vue";
 import { useRouter, onBeforeRouteUpdate } from "vue-router";
 import emitter from "@/emitter";
+
 import DeleteAllButton from "@/components/buttons/DeleteAllButton.vue";
 import MobileButton from "@/components/buttons/MobileButton.vue";
+
+onBeforeRouteUpdate((to) => {
+  isRoot.value = to.matched.length === 1 ? true : false;
+});
 
 const router = useRouter();
 const isRoot = ref(router.currentRoute.value.matched.length === 1);
 const query = matchMedia("(max-width:620px)");
 
 query.addEventListener("change", () => (isMobile.value = query.matches));
-onBeforeRouteUpdate((to) => {
-  isRoot.value = to.matched.length === 1 ? true : false;
-});
 emitter.on("settings-mobile", (state) => (mobileMenu.value = state as boolean));
 
 const menuOptions = ["General", "Theme"];

@@ -1,9 +1,14 @@
 <script setup lang="ts">
-import emitter from "@/emitter";
+import { setLocal } from "@/helpers";
+import { userStore } from "@/store/store";
+const store = userStore();
 
 const onClick = () => {
   const confirm = window.confirm("Do you want delete all workspaces?");
-  if (confirm) emitter.emit("UPDATE_ALL");
+  if (confirm) {
+    setLocal("workspaces", [{ id: 0, content: "" }]);
+    store.updateWorks();
+  }
 };
 </script>
 
