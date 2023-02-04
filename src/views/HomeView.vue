@@ -40,7 +40,6 @@ watch(contentWork, () => updateContent());
 watch(
   () => router.currentRoute.value.params.id,
   () => {
-    console.log(2);
     localWorkspace.value = getLocal<Workspace[]>("workspaces");
 
     idWork.value = +router.currentRoute.value.params.id;
