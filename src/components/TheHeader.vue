@@ -7,6 +7,14 @@ import { getLocal, setLocal, goTo } from "@/helpers";
 import PreviewButton from "./buttons/PreviewButton.vue";
 import SettingsButton from "./buttons/SettingsButton.vue";
 
+// Disable Keybinds of navigator
+document.onkeydown = function (e: KeyboardEvent) {
+  if ("123456".indexOf(e.key) != -1 && e.ctrlKey) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+};
+// Enable application shortscut
 document.onkeyup = function (event: KeyboardEvent) {
   event.preventDefault();
   const e = event || window.event;
@@ -26,13 +34,6 @@ document.onkeyup = function (event: KeyboardEvent) {
     return false;
   }
 };
-// Disable Keybinds of navigator
-document.onkeydown = function (e: KeyboardEvent) {
-  if ("123456".indexOf(e.key) != -1 && e.ctrlKey) {
-    e.preventDefault();
-    e.stopPropagation();
-  }
-};
 
 const removeWorkLocal = (id: number) => {
   local.value.forEach((work, index) => {
@@ -44,7 +45,7 @@ const removeWorkLocal = (id: number) => {
 const removeWork = (idWork: number) => {
   if (!deleteMode.value) return false;
   local.value = getLocal<Workspace[]>("workspaces");
-  const isEmpty = !local.value.slice(-1)[0].content;
+  const isEmpty = !local.value.filter(({ id }) => id === idWork)[0].content;
   let confirmed;
   if (!isEmpty) {
     confirmed = window.confirm(`Do you want to delete Workspace ${idWork}?`);
@@ -79,13 +80,14 @@ const eventAdd = () => {
     id = updateID();
   }
 };
+
 const local = ref(getLocal<Workspace[]>("workspaces"));
-const updateID = () => items.value.slice(-1)[0] + 1;
+const updateID = () => items.value.at(-1)! + 1;
 const getWorkspacesID = () => local.value.map(({ id }) => id);
 const items = ref(getWorkspacesID());
 let id = updateID();
 const router = useRouter();
-let deleteMode = ref(false);
+const deleteMode = ref(false);
 emitter.on("UPDATE_ALL", updateAllConf);
 </script>
 
