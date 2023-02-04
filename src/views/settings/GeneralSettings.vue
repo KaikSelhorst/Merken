@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import FontSize from "@/components/generalSettings/FontSize.vue";
 import FontFamily from "@/components/generalSettings/FontFamily.vue";
-import ShortCuts from "@/components/generalSettings/Shortcuts.vue";
+import ShortCuts from "@/components/generalSettings/ShortCuts.vue";
 </script>
 
 <template>
