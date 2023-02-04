@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { RouterLink, useRouter } from "vue-router";
-
 import emitter from "@/emitter";
-
 import type { Workspace } from "env";
 import { getLocal, setLocal, goTo } from "@/helpers";
-
 import PreviewButton from "./buttons/PreviewButton.vue";
 import SettingsButton from "./buttons/SettingsButton.vue";
 
@@ -29,7 +26,7 @@ document.onkeyup = function (event: KeyboardEvent) {
     return false;
   }
 };
-
+// Disable Keybinds of navigator
 document.onkeydown = function (e: KeyboardEvent) {
   if ("123456".indexOf(e.key) != -1 && e.ctrlKey) {
     e.preventDefault();
@@ -82,15 +79,15 @@ const eventAdd = () => {
     id = updateID();
   }
 };
-
-emitter.on("UPDATE_ALL", updateAllConf);
 const local = ref(getLocal<Workspace[]>("workspaces"));
 const updateID = () => items.value.slice(-1)[0] + 1;
 const getWorkspacesID = () => local.value.map(({ id }) => id);
+
 const items = ref(getWorkspacesID());
 let id = updateID();
 const router = useRouter();
 let deleteMode = ref(false);
+emitter.on("UPDATE_ALL", updateAllConf);
 </script>
 
 <template>
