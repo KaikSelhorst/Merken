@@ -31,15 +31,17 @@ export const userWorkspaces = () => {
       }
     });
   };
-  if (!works.value) {
+  const resetWorks = () => {
     setLocal("workspaces", [{ id: 0, content: "" }]);
     updateWorks();
-  }
+  };
+  if (!works.value) resetWorks();
   return {
     works,
     worksID,
     addWork,
     removeWork,
+    resetWorks,
     updateWorks,
     getWorkContent,
     updateWorkContent,

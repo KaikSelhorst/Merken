@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { RouterLink, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
+import { userWorkspaces } from "@/user/workspaces";
+
 import emitter from "@/emitter";
 import { goTo } from "@/helpers";
 
 import PreviewButton from "./buttons/PreviewButton.vue";
 import SettingsButton from "./buttons/SettingsButton.vue";
-
-import { userWorkspaces } from "@/user/workspaces";
-const workspaces = userWorkspaces();
 
 // Disable Keybinds of navigator
 document.onkeydown = function (e: KeyboardEvent) {
@@ -69,11 +68,14 @@ const eventAdd = () => {
 };
 
 const updateID = () => workspaces.worksID.value.at(-1)! + 1;
-
+const workspaces = userWorkspaces();
 let id = updateID();
 const router = useRouter();
 const deleteMode = ref(false);
-emitter.on("UPDATE_ALL", updateAllConf);
+emitter.on("UPDATE_ALL", () => {
+  workspaces.resetWorks();
+  id = updateID();
+});
 </script>
 
 <template>
