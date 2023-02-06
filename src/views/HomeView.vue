@@ -1,48 +1,33 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
+import { userWorkspaces } from "@/user/workspaces";
 
-import type { Workspace } from "env";
-import { getLocal, setLocal, goTo } from "@/helpers";
-
+import { goTo } from "@/helpers";
 import Workbranch from "@/components/WorkBranch.vue";
 
 const getID = () => +router.currentRoute.value.params.id;
 
+const workspaces = userWorkspaces();
 const router = useRouter();
 const idWork = ref(getID());
 const contentWork = ref("");
-const localWorkspace = ref(getLocal<Workspace[]>("workspaces"));
 
 const getContentByID = () => {
-  if (localWorkspace.value) {
-    let exist = false;
-    localWorkspace.value.forEach((work) => {
-      if (work.id === idWork.value) {
-        contentWork.value = work.content;
-        exist = true;
-      }
-    });
-    if (!exist) goTo(0);
-  }
+  const content = workspaces.getWorkContent(idWork.value);
+
+  if (content === null) goTo(0);
+  else contentWork.value = content;
 };
 
-const updateContent = () => {
-  if (localWorkspace.value) {
-    localWorkspace.value.forEach((work) => {
-      if (work.id === idWork.value) work.content = contentWork.value;
-    });
-  }
-  setLocal("workspaces", localWorkspace.value);
-};
-
-watch(contentWork, () => updateContent());
+watch(contentWork, () => {
+  workspaces.updateWorkContent(idWork.value, contentWork.value);
+});
 watch(
   () => router.currentRoute.value.params.id,
   () => {
-    localWorkspace.value = getLocal<Workspace[]>("workspaces");
-
-    idWork.value = +router.currentRoute.value.params.id;
+    workspaces.updateWorks();
+    idWork.value = getID();
     getContentByID();
   }
 );

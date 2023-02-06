@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { RouterLink, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
+import { userWorkspaces } from "@/user/workspaces";
+
 import emitter from "@/emitter";
-import type { Workspace } from "env";
-import { getLocal, setLocal, goTo } from "@/helpers";
+import { goTo } from "@/helpers";
+
 import PreviewButton from "./buttons/PreviewButton.vue";
 import SettingsButton from "./buttons/SettingsButton.vue";
 
@@ -29,66 +31,52 @@ document.onkeyup = function (event: KeyboardEvent) {
     return false;
   }
   if (e.ctrlKey && "123456".indexOf(e.key) !== -1) {
-    const work = items.value[+e.key - 1];
+    const work = workspaces.worksID.value[+e.key - 1];
     if (work || work == 0) goTo(work);
     return false;
   }
 };
 
-const removeWorkLocal = (id: number) => {
-  local.value.forEach((work, index) => {
-    if (work.id === id) local.value.splice(index, 1);
-  });
-  setLocal("workspaces", local.value);
-};
-
 const removeWork = (idWork: number) => {
   if (!deleteMode.value) return false;
-  local.value = getLocal<Workspace[]>("workspaces");
-  const isEmpty = !local.value.filter(({ id }) => id === idWork)[0].content;
+  workspaces.updateWorks();
+  const isEmpty = !workspaces.works.value.filter(({ id }) => id === idWork)[0]
+    .content;
   let confirmed;
   if (!isEmpty) {
     confirmed = window.confirm(`Do you want to delete Workspace ${idWork}?`);
   }
   if (isEmpty || confirmed) {
-    items.value.splice(items.value.indexOf(idWork), 1);
-    removeWorkLocal(idWork);
+    workspaces.removeWork(idWork);
     id = updateID();
   }
-  if (items.value.length === 0) return updateAllConf();
+  if (workspaces.worksID.value.length === 0) return updateAllConf();
   if (+router.currentRoute.value.params.id === idWork) goTo(id - 1);
 };
 
-const addWorkInLocal = (id: number) => {
-  local.value = getLocal<Workspace[]>("workspaces");
-  local.value.push({ id, content: "" });
-  setLocal("workspaces", local.value);
-};
-
 const updateAllConf = () => {
-  setLocal("workspaces", [{ id: 0, content: "" }]);
-  local.value = getLocal<Workspace[]>("workspaces");
-  items.value = getWorkspacesID();
+  workspaces.addWork(0);
   id = updateID();
 };
 
 const eventAdd = () => {
-  if (items.value.length <= 5) {
-    items.value.push(id);
-    addWorkInLocal(id);
+  if (workspaces.worksID.value.length <= 5) {
+    workspaces.updateWorks();
+    workspaces.addWork(id);
     goTo(id);
     id = updateID();
   }
 };
 
-const local = ref(getLocal<Workspace[]>("workspaces"));
-const updateID = () => items.value.at(-1)! + 1;
-const getWorkspacesID = () => local.value.map(({ id }) => id);
-const items = ref(getWorkspacesID());
+const updateID = () => workspaces.worksID.value.at(-1)! + 1;
+const workspaces = userWorkspaces();
 let id = updateID();
 const router = useRouter();
 const deleteMode = ref(false);
-emitter.on("UPDATE_ALL", updateAllConf);
+emitter.on("UPDATE_ALL", () => {
+  workspaces.resetWorks();
+  id = updateID();
+});
 </script>
 
 <template>
@@ -96,7 +84,7 @@ emitter.on("UPDATE_ALL", updateAllConf);
     <nav>
       <RouterLink
         :to="{ name: 'workspace', params: { id: item } }"
-        v-for="item in items"
+        v-for="item in workspaces.worksID.value"
         :key="item"
         @click="removeWork(item)"
       >
