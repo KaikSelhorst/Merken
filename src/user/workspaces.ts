@@ -32,7 +32,7 @@ export const userWorkspaces = () => {
     });
   };
   const resetWorks = () => {
-    setLocal("workspaces", [{ id: 0, content: "" }]);
+    setLocal("workspaces", [{ id: 1, content: "" }]);
     updateWorks();
   };
   if (!works.value) resetWorks();

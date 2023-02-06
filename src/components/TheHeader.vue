@@ -55,12 +55,12 @@ const removeWork = (idWork: number) => {
 };
 
 const updateAllConf = () => {
-  workspaces.addWork(0);
+  workspaces.addWork(1);
   id = updateID();
 };
 
 const eventAdd = () => {
-  if (workspaces.worksID.value.length <= 5) {
+  if (workspaces.worksID.value.length < 5) {
     workspaces.updateWorks();
     workspaces.addWork(id);
     goTo(id);

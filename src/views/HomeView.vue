@@ -16,7 +16,7 @@ const contentWork = ref("");
 const getContentByID = () => {
   const content = workspaces.getWorkContent(idWork.value);
 
-  if (content === null) goTo(0);
+  if (content === null) goTo(1);
   else contentWork.value = content;
 };
 
