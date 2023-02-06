@@ -61,6 +61,7 @@ const updateAllConf = () => {
 
 const eventAdd = () => {
   if (workspaces.worksID.value.length <= 5) {
+    workspaces.updateWorks();
     workspaces.addWork(id);
     goTo(id);
     id = updateID();
