@@ -8,6 +8,7 @@ import { goTo } from "@/helpers";
 
 import PreviewButton from "./buttons/PreviewButton.vue";
 import SettingsButton from "./buttons/SettingsButton.vue";
+import WorkItemMenuVue from "./WorkItemMenu.vue";
 
 // Disable Keybinds of navigator
 document.onkeydown = function (e: KeyboardEvent) {
@@ -82,14 +83,12 @@ emitter.on("UPDATE_ALL", () => {
 <template>
   <header :class="['header', { 'delete-mode': deleteMode }]">
     <nav>
-      <RouterLink
-        :to="{ name: 'workspace', params: { id: item } }"
-        v-for="item in workspaces.worksID.value"
-        :key="item"
-        @click="removeWork(item)"
-      >
-        {{ item }}
-      </RouterLink>
+      <WorkItemMenuVue
+        v-for="id in workspaces.worksID.value"
+        :key="id"
+        :to="{ name: 'workspace', params: { id } }"
+        :content="id"
+      />
     </nav>
     <div class="controlers">
       <button @click="deleteMode = false" v-if="deleteMode">👍</button>
@@ -104,8 +103,8 @@ emitter.on("UPDATE_ALL", () => {
 <style scoped>
 header {
   display: flex;
-  padding: 4px;
   justify-content: space-between;
+  padding: 0px 8px;
   border: 1px solid var(--davys-gray);
   border-radius: 2px;
 }
@@ -119,12 +118,9 @@ header :is(a, button) {
 header.delete-mode a {
   color: var(--orange-crayola);
 }
-a {
-  font-size: 1.125rem;
-  padding: 4px 8px;
-}
-a + a {
-  margin-left: 4px;
+nav {
+  gap: 4px;
+  display: flex;
 }
 button {
   padding: 0px 2px;
