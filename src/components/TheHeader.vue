@@ -78,6 +78,10 @@ emitter.on("UPDATE_ALL", () => {
   workspaces.resetWorks();
   id = updateID();
 });
+emitter.on("HAS_NEW_ID_WITH_CONTENT", () => {
+  workspaces.updateWorks();
+  workspaces.updateHasContents();
+});
 </script>
 
 <template>
@@ -88,6 +92,7 @@ emitter.on("UPDATE_ALL", () => {
         :key="id"
         :to="{ name: 'workspace', params: { id } }"
         :content="id"
+        :class="{ hasContent: workspaces.workHasContent.value.includes(id) }"
       />
     </nav>
     <div class="controlers">

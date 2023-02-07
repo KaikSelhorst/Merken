@@ -4,8 +4,11 @@ import type { Workspace } from "env";
 
 export const userWorkspaces = () => {
   const getWorks = () => getLocal<Workspace[]>("workspaces");
+  const getHasContent = () =>
+    works.value.filter(({ content }) => !!content).map(({ id }) => id);
   const works = ref(getWorks());
   const worksID = computed(() => works.value.map(({ id }) => id));
+  const workHasContent = ref(getHasContent());
 
   const addWork = (id: number) => {
     works.value.push({ id, content: "" });
@@ -31,19 +34,27 @@ export const userWorkspaces = () => {
       }
     });
   };
+  const verifyHasContents = () => {
+    return workHasContent.value.length !== getHasContent().length;
+  };
+  const updateHasContents = () => (workHasContent.value = getHasContent());
   const resetWorks = () => {
     setLocal("workspaces", [{ id: 1, content: "" }]);
     updateWorks();
   };
   if (!works.value) resetWorks();
+
   return {
     works,
     worksID,
+    workHasContent,
     addWork,
     removeWork,
     resetWorks,
     updateWorks,
     getWorkContent,
     updateWorkContent,
+    verifyHasContents,
+    updateHasContents,
   };
 };

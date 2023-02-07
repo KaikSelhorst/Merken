@@ -48,8 +48,11 @@ a {
   overflow: hidden;
   position: relative;
 }
+.hasContent {
+  color: var(--davys-gray);
+}
 
-a.cicle {
+.cicle {
   text-indent: -140px;
   margin: 0px 4px;
 }
@@ -69,5 +72,9 @@ a.cicle {
 }
 .cicle.router-link-exact-active::before {
   background: var(--mint) !important;
+}
+
+.cicle.hasContent::before {
+  background: var(--davys-gray);
 }
 </style>
