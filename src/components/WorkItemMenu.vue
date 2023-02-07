@@ -40,6 +40,7 @@ const type = ref(getLocal<UserConfig>("config").styleItem);
 </template>
 <style scoped>
 a {
+  font-variant-numeric: lining-nums;
   font-size: 1.125rem;
   line-height: 1.5rem;
   padding: 4px 8px;
