@@ -6,6 +6,7 @@ import MediumTitle from "../MediumTitle.vue";
 import type { UserConfig } from "env";
 import { getLocal } from "@/helpers";
 import { ref } from "vue";
+import { captalize } from "@/helpers";
 
 const options = ["default", "cicle", "roman"];
 
@@ -22,7 +23,7 @@ const activeType = ref(getLocal<UserConfig>("config").styleItem);
     <MediumTitle icon="palette">Change style of the Workspace Icon</MediumTitle>
     <ul>
       <li v-for="option in options" :key="option">
-        <span>{{ option }}</span>
+        <span>{{ captalize(option) }}</span>
         <ButtonSmall
           @click="setType('default')"
           v-if="option === activeType"

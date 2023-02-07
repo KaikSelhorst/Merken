@@ -66,3 +66,11 @@ export const romanize = (num: number) => {
   }
   return roman;
 };
+
+export const captalize = (str: string) => {
+  const capt = (word: string) => word[0].toUpperCase() + word.slice(1);
+
+  const strArr = str.split(" ");
+
+  return strArr.map(capt).join(" ");
+};
