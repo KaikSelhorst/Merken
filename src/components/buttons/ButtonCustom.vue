@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import emitter from "@/emitter";
 import ButtonLarge from "./ButtonLarge.vue";
+import ButtonSmall from "./ButtonSmall.vue";
 import BaseInput from "./BaseInput.vue";
 
 const onSubmit = () => {
@@ -24,6 +25,9 @@ const isCustom = ref(false);
   </ButtonLarge>
   <Teleport to="body">
     <form class="modal" v-if="open" @submit.prevent="onSubmit">
+      <ButtonSmall class="closeButton">
+        <FontAwesome icon="close" />
+      </ButtonSmall>
       <label for="font-name">Custom Font</label>
       <BaseInput v-model="customFont" label="Font Name" type="text" />
       <p>
@@ -79,5 +83,16 @@ button[type="submit"] {
 }
 button.active {
   background: var(--mint);
+}
+.closeButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+@media screen and (max-width: 520px) {
+  .modal {
+    width: 80vw;
+  }
 }
 </style>

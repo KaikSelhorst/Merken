@@ -1,94 +1,103 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { RouterLink, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
+import { userWorkspaces } from "@/user/workspaces";
 
 import emitter from "@/emitter";
-
-import type { Workspace } from "env";
-import { getLocal, setLocal, goTo } from "@/helpers";
+import { goTo } from "@/helpers";
 
 import PreviewButton from "./buttons/PreviewButton.vue";
 import SettingsButton from "./buttons/SettingsButton.vue";
+import WorkItemMenuVue from "./WorkItemMenu.vue";
 
-const removeWorkLocal = (id: number) => {
-  local.value.forEach((work, index) => {
-    if (work.id === id) local.value.splice(index, 1);
-  });
-  setLocal("workspaces", local.value);
+// Disable Keybinds of navigator
+document.onkeydown = function (e: KeyboardEvent) {
+  if ("123456".indexOf(e.key) != -1 && e.ctrlKey) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
 };
-
-const removeWork = (event: MouseEvent) => {
-  const work = event.target;
-  if (work && work instanceof HTMLElement) {
-    local.value = getLocal<Workspace[]>("workspaces");
-    const idWork = Number(work.innerHTML);
-    if (window.confirm(`Do you want to delete Workspace ${idWork}?`)) {
-      items.value.splice(items.value.indexOf(idWork), 1);
-      removeWorkLocal(idWork);
-      eventRemove();
-      id = updateID();
-    }
-    if (items.value.length === 0) return updateAllConf();
-    if (+router.currentRoute.value.params.id === idWork) goTo(id - 1);
+// Enable application shortscut
+document.onkeyup = function (event: KeyboardEvent) {
+  event.preventDefault();
+  const e = event || window.event;
+  if (e.ctrlKey && e.altKey && e.code == "KeyT") {
+    eventAdd();
+    return false;
+  }
+  if (e.ctrlKey && e.altKey && e.code == "KeyD") {
+    deleteMode.value = true;
+    removeWork(+router.currentRoute.value.params.id);
+    deleteMode.value = false;
+    return false;
+  }
+  if (e.ctrlKey && "123456".indexOf(e.key) !== -1) {
+    const work = workspaces.worksID.value[+e.key - 1];
+    if (work || work == 0) goTo(work);
+    return false;
   }
 };
 
-const eventRemove = () => {
-  const workspaces = document.querySelectorAll<HTMLElement>("header nav > a");
-  deleteMode.value = !deleteMode.value;
-  if (workspaces.length && deleteMode.value) {
-    workspaces.forEach((a) => a.addEventListener("click", removeWork));
-  } else {
-    workspaces.forEach((a) => a.removeEventListener("click", removeWork));
+const removeWork = (idWork: number) => {
+  if (!deleteMode.value) return false;
+  workspaces.updateWorks();
+  const isEmpty = !workspaces.works.value.filter(({ id }) => id === idWork)[0]
+    .content;
+  let confirmed;
+  if (!isEmpty) {
+    confirmed = window.confirm(`Do you want to delete Workspace ${idWork}?`);
   }
-};
-
-const addWorkInLocal = (id: number) => {
-  local.value = getLocal<Workspace[]>("workspaces");
-  local.value.push({ id, content: "" });
-  setLocal("workspaces", local.value);
+  if (isEmpty || confirmed) {
+    workspaces.removeWork(idWork);
+    id = updateID();
+  }
+  if (workspaces.worksID.value.length === 0) return updateAllConf();
+  if (+router.currentRoute.value.params.id === idWork) goTo(id - 1);
 };
 
 const updateAllConf = () => {
-  setLocal("workspaces", [{ id: 0, content: "" }]);
-  local.value = getLocal<Workspace[]>("workspaces");
-  items.value = getWorkspacesID();
+  workspaces.addWork(1);
   id = updateID();
 };
 
 const eventAdd = () => {
-  if (items.value.length <= 5) {
-    items.value.push(id);
-    addWorkInLocal(id);
+  if (workspaces.worksID.value.length < 5) {
+    workspaces.updateWorks();
+    workspaces.addWork(id);
     goTo(id);
     id = updateID();
   }
 };
 
-emitter.on("UPDATE_ALL", updateAllConf);
-const local = ref(getLocal<Workspace[]>("workspaces"));
-const updateID = () => items.value.slice(-1)[0] + 1;
-const getWorkspacesID = () => local.value.map(({ id }) => id);
-const items = ref(getWorkspacesID());
+const updateID = () => workspaces.worksID.value.at(-1)! + 1;
+const workspaces = userWorkspaces();
 let id = updateID();
 const router = useRouter();
-let deleteMode = ref(false);
+const deleteMode = ref(false);
+emitter.on("UPDATE_ALL", () => {
+  workspaces.resetWorks();
+  id = updateID();
+});
+emitter.on("HAS_NEW_ID_WITH_CONTENT", () => {
+  workspaces.updateWorks();
+  workspaces.updateHasContents();
+});
 </script>
 
 <template>
   <header :class="['header', { 'delete-mode': deleteMode }]">
     <nav>
-      <RouterLink
-        :to="{ name: 'workspace', params: { id: item } }"
-        v-for="item in items"
-        :key="item"
-      >
-        {{ item }}
-      </RouterLink>
+      <WorkItemMenuVue
+        v-for="id in workspaces.worksID.value"
+        :key="id"
+        :to="{ name: 'workspace', params: { id } }"
+        :content="id"
+        :class="{ hasContent: workspaces.workHasContent.value.includes(id) }"
+      />
     </nav>
     <div class="controlers">
-      <button @click="eventRemove" v-if="deleteMode">👍</button>
-      <button @click="eventRemove" v-else>-</button>
+      <button @click="deleteMode = false" v-if="deleteMode">👍</button>
+      <button @click="deleteMode = true" v-else>-</button>
       <button @click="eventAdd">+</button>
       <PreviewButton />
       <SettingsButton />
@@ -99,8 +108,8 @@ let deleteMode = ref(false);
 <style scoped>
 header {
   display: flex;
-  padding: 4px 12px;
   justify-content: space-between;
+  padding: 0px 8px;
   border: 1px solid var(--davys-gray);
   border-radius: 2px;
 }
@@ -114,12 +123,9 @@ header :is(a, button) {
 header.delete-mode a {
   color: var(--orange-crayola);
 }
-a {
-  font-size: 1.125rem;
-  padding: 4px;
-}
-a + a {
-  margin-left: 4px;
+nav {
+  gap: 4px;
+  display: flex;
 }
 button {
   padding: 0px 2px;

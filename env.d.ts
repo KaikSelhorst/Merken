@@ -11,4 +11,5 @@ export interface UserConfig {
   font: string;
   family: string;
   theme: string;
+  styleItem: string;
 }

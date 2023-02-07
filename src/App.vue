@@ -7,7 +7,7 @@ const getInitialLocal = () => {
   if (!local)
     localStorage.setItem(
       "workspaces",
-      JSON.stringify([{ id: 0, content: "" }])
+      JSON.stringify([{ id: 1, content: "" }])
     );
 };
 

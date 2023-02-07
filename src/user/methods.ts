@@ -16,10 +16,16 @@ const changeFamily = (family: string) => {
 const changeTheme = (theme: string) => {
   document.documentElement.dataset.theme = theme.toLocaleLowerCase();
 };
+
+const changeStyleItem = (style: string) => {
+  emitter.emit("STYLEITEM_HAS_CHANGED", style);
+};
+
 const methods: { [config: string]: any } = {
   font: changeFont,
   family: changeFamily,
   theme: changeTheme,
+  styleItem: changeStyleItem,
 };
 
 export default methods;
