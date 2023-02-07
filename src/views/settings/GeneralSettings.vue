@@ -2,6 +2,7 @@
 import FontSize from "@/components/generalSettings/FontSize.vue";
 import FontFamily from "@/components/generalSettings/FontFamily.vue";
 import ShortCuts from "@/components/generalSettings/ShortCuts.vue";
+import StyleItem from "@/components/generalSettings/StyleItem.vue";
 </script>
 
 <template>
@@ -11,6 +12,7 @@ import ShortCuts from "@/components/generalSettings/ShortCuts.vue";
       <p>Make some modifications to your app, leaving it your way. *_*</p>
       <FontSize />
       <FontFamily />
+      <StyleItem />
       <ShortCuts />
     </article>
   </div>
