@@ -31,6 +31,7 @@ $ npm run lint   # Use diferent lint config
 | Vue.js     | [Version 3](https://vuejs.org/)              |
 | Vue Router | [Version 4](https://router.vuejs.org/)       |
 | Vite       | [Version 4](https://vitejs.dev/)             |
+| Mitt	     | [Version 3](https://github.com/developit/mitt)|
 | TypeScript | [Version 4](https://www.typescriptlang.org/) |
 
 ### License
