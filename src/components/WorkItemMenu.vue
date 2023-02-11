@@ -49,7 +49,7 @@ a {
   position: relative;
 }
 .hasContent {
-  color: var(--davys-gray);
+  color: var(--secondary);
 }
 
 .cicle {
@@ -67,14 +67,14 @@ a {
   left: 50%;
   border-radius: 50%;
   transition: 0.3s all;
-  border: 2px solid var(--davys-gray);
+  border: 2px solid var(--border-color);
   transform: translate3d(-50%, -50%, 0);
 }
 .cicle.router-link-exact-active::before {
-  background: var(--mint) !important;
+  background: var(--primary) !important;
 }
 
 .cicle.hasContent::before {
-  background: var(--davys-gray);
+  background: var(--secondary);
 }
 </style>

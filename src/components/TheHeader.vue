@@ -110,7 +110,7 @@ header {
   display: flex;
   justify-content: space-between;
   padding: 0px 8px;
-  border: 1px solid var(--davys-gray);
+  border: 1px solid var(--border-color);
   border-radius: 2px;
 }
 .controlers {
@@ -118,10 +118,10 @@ header {
   align-items: center;
 }
 header :is(a, button) {
-  color: var(--white);
+  color: var(--font-color);
 }
 header.delete-mode a {
-  color: var(--orange-crayola);
+  color: var(--alert);
 }
 nav {
   gap: 4px;
@@ -138,6 +138,6 @@ button + button {
   margin-left: 4px;
 }
 button:hover {
-  color: var(--mint);
+  color: var(--primary);
 }
 </style>

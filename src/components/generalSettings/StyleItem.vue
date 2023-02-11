@@ -51,6 +51,6 @@ li + li {
   margin-top: 12px;
 }
 button.active {
-  background: var(--mint);
+  background: var(--primary);
 }
 </style>

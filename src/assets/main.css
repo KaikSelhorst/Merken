@@ -16,7 +16,7 @@ html {
 }
 
 :root {
-  --background: var(--eerie-black);
+  --background: var(--bg-color);
 }
 
 body {
@@ -25,7 +25,7 @@ body {
 }
 
 a.router-link-exact-active {
-  color: var(--mint) !important;
+  color: var(--primary) !important;
 }
 
 button {
@@ -41,13 +41,13 @@ button {
 }
 html {
   scrollbar-width: thin;
-  scrollbar-color: var(--onyx) var(--onyx);
+  scrollbar-color: var(--bg-color) var(--bg-color);
 }
 ::-webkit-scrollbar-track {
-  background: var(--onyx);
+  background: var(--bg-color);
 }
 ::-webkit-scrollbar-thumb {
-  background-color: var(--jet);
+  background-color: var(--border-color);
   border-radius: 6px;
-  border: 3px solid var(--onyx);
+  border: 3px solid var(--bg-color);
 }

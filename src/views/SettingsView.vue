@@ -52,7 +52,7 @@ const isMobile = ref(query.matches);
 section {
   display: grid;
   border-radius: 2px;
-  border: 1px solid var(--davys-gray);
+  border: 1px solid var(--border-color);
   margin-top: 12px;
   grid-template-columns: 300px 1fr;
 }
@@ -70,13 +70,13 @@ nav button {
 }
 aside,
 aside a {
-  color: var(--platinum);
+  color: var(--font-color);
   line-height: 1.25rem;
   font-weight: 500;
   font-size: 0.8125rem;
 }
 main {
-  color: var(--white);
+  color: var(--font-color);
   overflow: auto;
 }
 
@@ -99,11 +99,11 @@ main {
   }
   aside {
     position: relative;
-    border-bottom: 1px solid var(--davys-gray);
+    border-bottom: 1px solid var(--border-color);
   }
   aside nav {
-    border: 1px solid var(--davys-gray);
-    background: var(--eerie-black);
+    border: 1px solid var(--border-color);
+    background: var(--bg-color);
     height: calc(90vh - 10px);
     top: -1px;
     left: -1px;

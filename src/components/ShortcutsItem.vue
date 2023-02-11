@@ -35,8 +35,8 @@ ul li {
   text-align: center;
   display: inline-block;
   margin: 2.5px;
-  box-shadow: 0px 2px var(--davys-gray);
-  background: var(--jet);
+  box-shadow: 0px 2px var(--border-color);
+  background: var(--bg-button);
   border-radius: 2px;
 }
 </style>

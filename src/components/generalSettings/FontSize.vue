@@ -53,10 +53,10 @@ input {
   width: 100%;
   font-size: 0.875rem;
   border-radius: 2px;
-  background-color: var(--jet);
+  background-color: var(--bg-input);
   padding: 6px;
-  color: var(--white);
-  border: 1px solid var(--davys-gray);
+  color: var(--font-color);
+  border: 1px solid var(--border-color);
 }
 @media screen and (min-width: 620px) {
   form {

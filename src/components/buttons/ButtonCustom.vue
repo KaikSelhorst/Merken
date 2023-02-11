@@ -44,9 +44,9 @@ const isCustom = ref(false);
   top: 50%;
   transform: translate3d(-50%, -50%, 0);
   background: var(--background);
-  border: 1px solid var(--davys-gray);
+  border: 1px solid var(--border-color);
 
-  color: var(--white);
+  color: var(--font-color);
   width: 50vw;
   max-width: 450px;
   padding: 32px;
@@ -68,10 +68,10 @@ input {
   height: 36px;
   font-size: 1rem;
   border-radius: 2px;
-  background-color: var(--jet);
+  background-color: var(--bg-button);
   padding: 6px;
-  color: var(--white);
-  border: 1px solid var(--davys-gray);
+  color: var(--font-color);
+  border: 1px solid var(--border-color);
 }
 p {
   margin-bottom: 12px;
@@ -82,7 +82,7 @@ button[type="submit"] {
   margin-bottom: 8px;
 }
 button.active {
-  background: var(--mint);
+  background: var(--primary);
 }
 .closeButton {
   position: absolute;
