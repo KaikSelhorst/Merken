@@ -8,7 +8,6 @@ import ButtonLarge from "@/components/buttons/ButtonLarge.vue";
 
 const themes = [
   "Nord",
-  "Vue",
   "Dracula",
   "Ballerini",
   "GruvBox",
@@ -45,6 +44,7 @@ const activeTheme = ref(getLocal<UserConfig>("config").theme);
 </template>
 <style scoped>
 button.active {
+  color: var(--button-color);
   background: var(--primary);
 }
 </style>

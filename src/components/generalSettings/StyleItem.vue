@@ -52,5 +52,6 @@ li + li {
 }
 button.active {
   background: var(--primary);
+  color: var(--button-color);
 }
 </style>

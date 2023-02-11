@@ -15,7 +15,7 @@ button {
   background: var(--alert);
   padding: 8px 16px;
   display: block;
-  color: var(--heading-color);
+  color: var(--button-color);
   font-weight: 500;
   border-radius: 2px;
 }

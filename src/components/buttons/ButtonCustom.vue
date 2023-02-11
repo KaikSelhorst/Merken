@@ -82,6 +82,7 @@ button[type="submit"] {
   margin-bottom: 8px;
 }
 button.active {
+  color: var(--button-color);
   background: var(--primary);
 }
 .closeButton {
