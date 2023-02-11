@@ -17,6 +17,7 @@ h2 svg {
   margin-right: 8px;
 }
 h2 {
+  color: var(--heading-color);
   margin-top: 32px;
   margin-bottom: 8px;
   font-size: 1.125rem;

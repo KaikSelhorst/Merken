@@ -1,20 +1,11 @@
 :root {
-  --mint: rgba(66, 184, 131, 1);
-  --orange-crayola: rgba(255, 82, 82, 1);
-  --white: rgba(255, 255, 255, 0.87);
-  --onyx: rgba(66, 66, 66, 1);
-  --eerie-black: rgba(26, 26, 26, 1);
-  --jet: rgba(47, 47, 47, 1);
-  --davys-gray: rgba(84, 84, 84, 0.48);
-  --platinum: rgba(235, 235, 235, 60%);
+  --primary: #c678dd;
+  --secondary:#444c56;
+  --bg-color: #22272e;
+  --bg-input: #22272e;
+  --bg-button: #2d333b;
+  --heading-color: #ffffff;
+  --font-color: #adbac7;
+  --alert: #e5534b;
+  --border-color: #444c56;
 }
-
-/* 
- -- Mint is a base color of the Application 
- -- Orange-Crayola is a Alert/Error/Delete color 
- -- White is a base color for text 
- -- Eerie-black is a background color 
- -- Jet is background for Input,buttons etc, no used in main-containers 
- -- Davys-gray for border colors 
- -- platinum is used in btnMobile 
-*/

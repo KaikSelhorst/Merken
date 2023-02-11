@@ -41,9 +41,9 @@ section {
 
 textarea {
   font-size: 1rem;
-  background: var(--jet);
+  background: var(--bg-input);
   resize: none;
-  color: var(--white);
+  color: var(--font-color);
   outline: none;
 }
 
@@ -51,7 +51,7 @@ section > * {
   padding: 8px 12px;
   max-width: 50vw;
   border-radius: 2px;
-  border: 1px solid var(--davys-gray);
+  border: 1px solid var(--border-color);
 }
 
 @media screen and (max-width: 1000px) {

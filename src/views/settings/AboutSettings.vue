@@ -39,14 +39,27 @@ import MediumTitle from "@/components/MediumTitle.vue";
       <MediumTitle>Contact</MediumTitle>
       <p>
         E-mail:
-        <a href="mailto:oficial.kaikselhorst@gmail.com"
-          >&lt;oficial.kaikselhorst@gmail.com&gt;</a
-        >
+        <a href="mailto:oficial.kaikselhorst@gmail.com">
+          &lt;oficial.kaikselhorst@gmail.com&gt;
+        </a>
       </p>
-      <p>GitHub: <a href="https://github.com/KaikSelhorst">@KaikSelhorst</a></p>
+      <p>
+        Github
+        <a href="https://github.com/KaikSelhorst/Merken" target="_blank">
+          @Project
+        </a>
+      </p>
+      <p>
+        Dev:
+        <a href="https://github.com/KaikSelhorst" target="_blank">
+          @KaikSelhorst
+        </a>
+      </p>
       <p>
         Discord:
-        <a href="https://discord.com/users/690249250067841031">Bseven#4712</a>
+        <a href="https://discord.com/users/690249250067841031" target="_blank">
+          Bseven#4712
+        </a>
       </p>
     </article>
   </div>
@@ -59,5 +72,9 @@ li {
   font-size: 1rem;
   line-height: 1.425rem;
   list-style-position: inside;
+}
+a {
+  color: var(--font-color);
+  text-decoration: underline;
 }
 </style>

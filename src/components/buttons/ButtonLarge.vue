@@ -11,13 +11,12 @@ button {
   width: 100%;
   font-size: 0.875rem;
   font-weight: 500;
-  background: var(--jet);
+  background: var(--bg-button);
   transition: 0.3s all;
   padding: 8px;
-  color: var(--white);
+  color: var(--heading-color);
 }
 button:hover {
-  color: var(--white);
-  background: var(--mint);
+  background: var(--primary);
 }
 </style>

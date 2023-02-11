@@ -4,6 +4,7 @@
   line-height: 1.425rem;
 }
 .settings h1 {
+  color: var(--heading-color);
   margin: 0 0 1.25rem;
   font-size: 38px;
   line-height: 1.4;
