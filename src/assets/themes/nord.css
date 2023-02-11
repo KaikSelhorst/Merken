@@ -1,10 +1,12 @@
 html[data-theme="nord"] {
-  --mint: #434c5e;
-  --orange-crayola: #bf616a;
-  --white: #d8dee9;
-  --onyx: #2e3440;
-  --eerie-black: #2e3440;
-  --jet: #3b4252;
-  --davys-gray: #4c566a;
-  --platinum: rgba(235, 235, 235, 60%);
+  --primary: #81a1c1;
+  --secondary:#434c5e;
+  --bg-color: #2e3440  ;
+  --bg-input: #3b4252 ;
+  --bg-button: #3b4252;
+  --heading-color: #eceff4;
+  --font-color: #d8dee9;
+  --alert: #bf616a;
+  --border-color: #434c5e;
 }
+

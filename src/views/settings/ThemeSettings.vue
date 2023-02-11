@@ -35,8 +35,9 @@ const activeTheme = ref(getLocal<UserConfig>("config").theme);
             :class="{
               active: theme.toLowerCase() == activeTheme.toLocaleLowerCase(),
             }"
-            >{{ theme }}</ButtonLarge
           >
+            {{ theme }}
+          </ButtonLarge>
         </li>
       </ul>
     </article>
@@ -44,6 +45,6 @@ const activeTheme = ref(getLocal<UserConfig>("config").theme);
 </template>
 <style scoped>
 button.active {
-  background: var(--mint);
+  background: var(--primary);
 }
 </style>
