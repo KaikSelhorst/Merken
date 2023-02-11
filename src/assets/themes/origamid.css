@@ -1,10 +1,12 @@
 html[data-theme="origamid"] {
-  --mint: #bba0f3;
-  --orange-crayola: #ee5500;
-  --white: #f8f5f9;
-  --onyx: #111111;
-  --eerie-black: #111111;
-  --jet: #222222;
-  --davys-gray: #333333;
-  --platinum: rgba(235, 235, 235, 60%);
+  --primary: #bba0ff;
+  --secondary:#888888;
+  --bg-color: #222222;
+  --bg-input: #333333 ;
+  --bg-button: #333333;
+  --heading-color:#ffffff ;
+  --font-color: #ccccb5;
+  --alert: #e5534b;
+  --border-color: #555555;
+  --button-color:#ffffff;
 }
