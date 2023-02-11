@@ -4,9 +4,10 @@ html[data-theme="nord"] {
   --bg-color: #2e3440  ;
   --bg-input: #3b4252 ;
   --bg-button: #3b4252;
-  --heading-color: #eceff4;
+  --heading-color: #d8dee9;
   --font-color: #d8dee9;
   --alert: #bf616a;
   --border-color: #434c5e;
+  --button-color:#d8dee9;
 }
 
