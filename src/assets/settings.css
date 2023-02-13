@@ -1,13 +1,13 @@
 .settings p {
   margin-bottom: 1.2rem;
   font-size: 1rem;
-  line-height: 1.425rem;
+  line-height: 1.5rem;
 }
 .settings h1 {
   color: var(--heading-color);
-  margin: 0 0 1.25rem;
-  font-size: 38px;
-  line-height: 1.4;
+  margin: 0 0 0.5rem;
+  font-size: 2.5rem;
+  line-height: 3rem;
   letter-spacing: -0.02em;
 }
 
@@ -19,8 +19,8 @@
   --columns: 4;
   display: grid;
   grid-template-columns: repeat(var(--columns), 1fr);
-  margin-top: 16px;
-  gap: 16px;
+  margin-top: 1rem;
+  gap: 1rem;
 }
 
 @media (max-width: 980px) {

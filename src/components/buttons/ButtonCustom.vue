@@ -51,7 +51,7 @@ const isCustom = ref(false);
   max-width: 450px;
   padding: 32px;
   border-radius: 2px;
-  gap: 16px;
+  gap: 1rem;
   display: grid;
 
   grid-auto-rows: min-content;
@@ -69,21 +69,25 @@ input {
   font-size: 1rem;
   border-radius: 2px;
   background-color: var(--bg-button);
-  padding: 6px;
+  padding: 0.0375rem;
   color: var(--font-color);
   border: 1px solid var(--border-color);
 }
+
 p {
-  margin-bottom: 12px;
+  margin-bottom: 0.75rem;
 }
+
 button[type="submit"] {
   font-size: 1rem;
   height: 36px;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 }
+
 button.active {
   background: var(--primary);
 }
+
 .closeButton {
   position: absolute;
   top: 8px;

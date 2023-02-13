@@ -43,18 +43,19 @@ a {
   font-variant-numeric: lining-nums;
   font-size: 1.125rem;
   line-height: 1.5rem;
-  padding: 4px 8px;
+  padding: 0.25rem 0.5rem;
   display: block;
   overflow: hidden;
   position: relative;
 }
+
 .hasContent {
   color: var(--secondary);
 }
 
 .cicle {
   text-indent: -140px;
-  margin: 0px 4px;
+  margin: 0px 0.25rem;
 }
 
 .cicle::before {
@@ -67,9 +68,10 @@ a {
   left: 50%;
   border-radius: 50%;
   transition: 0.3s all;
-  border: 2px solid var(--border-color);
+  border: 0.125rem solid var(--border-color);
   transform: translate3d(-50%, -50%, 0);
 }
+
 .cicle.router-link-exact-active::before {
   background: var(--primary) !important;
 }

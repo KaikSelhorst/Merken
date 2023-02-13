@@ -13,9 +13,10 @@ button {
   font-weight: 500;
   background: var(--bg-button);
   transition: 0.3s all;
-  padding: 8px;
+  padding: 0.5rem;
   color: var(--heading-color);
 }
+
 button:hover {
   background: var(--primary);
 }

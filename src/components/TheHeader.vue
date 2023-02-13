@@ -87,13 +87,8 @@ emitter.on("HAS_NEW_ID_WITH_CONTENT", () => {
 <template>
   <header :class="['header', { 'delete-mode': deleteMode }]">
     <nav>
-      <WorkItemMenuVue
-        v-for="id in workspaces.worksID.value"
-        :key="id"
-        :to="{ name: 'workspace', params: { id } }"
-        :content="id"
-        :class="{ hasContent: workspaces.workHasContent.value.includes(id) }"
-      />
+      <WorkItemMenuVue v-for="id in workspaces.worksID.value" :key="id" :to="{ name: 'workspace', params: { id } }"
+        :content="id" :class="{ hasContent: workspaces.workHasContent.value.includes(id) }" />
     </nav>
     <div class="controlers">
       <button @click="deleteMode = false" v-if="deleteMode">👍</button>
@@ -109,34 +104,41 @@ emitter.on("HAS_NEW_ID_WITH_CONTENT", () => {
 header {
   display: flex;
   justify-content: space-between;
-  padding: 0px 8px;
+  padding: 0px 0.5rem;
   border: 1px solid var(--border-color);
   border-radius: 2px;
 }
+
 .controlers {
   display: flex;
   align-items: center;
 }
+
 header :is(a, button) {
   color: var(--font-color);
 }
+
 header.delete-mode a {
   color: var(--alert);
 }
+
 nav {
-  gap: 4px;
+  gap: 0.25rem;
   display: flex;
 }
+
 button {
-  padding: 0px 2px;
+  padding: 0px 0.125rem;
 
   transition: 0.3s all;
   font-size: 1.125rem;
   line-height: 1rem;
 }
-button + button {
-  margin-left: 4px;
+
+button+button {
+  margin-left: 0.25rem;
 }
+
 button:hover {
   color: var(--primary);
 }

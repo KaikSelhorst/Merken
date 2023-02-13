@@ -14,12 +14,13 @@ defineProps({
 </template>
 <style scoped>
 h2 svg {
-  margin-right: 8px;
+  margin-right: 0.5rem;
 }
+
 h2 {
   color: var(--heading-color);
-  margin-top: 32px;
-  margin-bottom: 8px;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
   font-size: 1.125rem;
   line-height: 1.5rem;
 }

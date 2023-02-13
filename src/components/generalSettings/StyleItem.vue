@@ -24,11 +24,7 @@ const activeType = ref(getLocal<UserConfig>("config").styleItem);
     <ul>
       <li v-for="option in options" :key="option">
         <span>{{ captalize(option) }}</span>
-        <ButtonSmall
-          @click="setType('default')"
-          v-if="option === activeType"
-          class="active"
-        >
+        <ButtonSmall @click="setType('default')" v-if="option === activeType" class="active">
           <FontAwesome icon="close" />
         </ButtonSmall>
         <ButtonSmall @click="setType(option)" v-else>
@@ -40,16 +36,19 @@ const activeType = ref(getLocal<UserConfig>("config").styleItem);
 </template>
 <style scoped>
 ul {
-  margin: 16px 0;
+  margin: 1rem 0;
 }
+
 li {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-li + li {
-  margin-top: 12px;
+
+li+li {
+  margin-top: 0.75rem;
 }
+
 button.active {
   background: var(--primary);
 }
