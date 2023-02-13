@@ -27,16 +27,16 @@ div {
 }
 
 ul li {
-  padding: 1px 8px;
+  padding: 1px 0.5rem;
   font-weight: 600;
   letter-spacing: -0.01rem;
   text-transform: uppercase;
   font-size: 0.8rem;
   text-align: center;
   display: inline-block;
-  margin: 2.5px;
-  box-shadow: 0px 2px var(--border-color);
+  margin: 0.15625rem;
+  box-shadow: 0px 0.125rem var(--border-color);
   background: var(--bg-button);
-  border-radius: 2px;
+  border-radius: 0.125rem;
 }
 </style>

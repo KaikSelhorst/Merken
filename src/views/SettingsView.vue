@@ -23,18 +23,11 @@ const isMobile = ref(query.matches);
 <template>
   <section>
     <aside :class="{ active: mobileMenu }" id="aside">
-      <MobileButton
-        emitted-name="settings-mobile"
-        controls="#aside"
-        v-if="isMobile"
-      />
+      <MobileButton emitted-name="settings-mobile" controls="#aside" v-if="isMobile" />
       <nav>
         <ul>
           <li v-for="(option, index) in menuOptions" :key="index">
-            <RouterLink
-              @click="mobileMenu = false"
-              :to="{ name: option.toLocaleLowerCase() }"
-            >
+            <RouterLink @click="mobileMenu = false" :to="{ name: option.toLocaleLowerCase() }">
               {{ option }}
             </RouterLink>
           </li>
@@ -53,21 +46,25 @@ section {
   display: grid;
   border-radius: 2px;
   border: 1px solid var(--border-color);
-  margin-top: 12px;
+  margin-top: 0.75rem;
   grid-template-columns: 300px 1fr;
 }
-section > * {
-  padding: 16px;
+
+section>* {
+  padding: 1rem;
 }
+
 nav {
   height: 100%;
   justify-content: start;
   align-items: flex-start;
   display: grid;
 }
+
 nav button {
   align-self: flex-end;
 }
+
 aside,
 aside a {
   color: var(--font-color);
@@ -75,6 +72,7 @@ aside a {
   font-weight: 500;
   font-size: 0.8125rem;
 }
+
 main {
   color: var(--font-color);
   overflow: auto;
@@ -87,20 +85,23 @@ main {
 }
 
 @media screen and (min-width: 620px) {
-  section > * {
+  section>* {
     height: calc(90vh - 8px);
-    padding: 16px;
+    padding: 1rem;
   }
 }
+
 @media screen and (max-width: 620px) {
   section {
     grid-template-columns: 1fr;
     grid-template-rows: min-content calc(88vh - 49px);
   }
+
   aside {
     position: relative;
     border-bottom: 1px solid var(--border-color);
   }
+
   aside nav {
     border: 1px solid var(--border-color);
     background: var(--bg-color);
@@ -108,12 +109,13 @@ main {
     top: -1px;
     left: -1px;
     position: absolute;
-    padding: 16px;
+    padding: 1rem;
     transition: 0.3s all;
     opacity: 0;
     visibility: hidden;
     transform: translate3d(-30px, 0, 0);
   }
+
   aside.active nav {
     opacity: 1;
     visibility: visible;

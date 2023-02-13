@@ -13,7 +13,7 @@ const onClick = () => {
 <style scoped>
 button {
   background: var(--alert);
-  padding: 8px 16px;
+  padding: 0.5rem 1rem;
   display: block;
   color: var(--button-color);
   font-weight: 500;

@@ -20,7 +20,7 @@ html {
 }
 
 body {
-  margin: 8px;
+  margin: 0.5rem;
   background: var(--background);
 }
 

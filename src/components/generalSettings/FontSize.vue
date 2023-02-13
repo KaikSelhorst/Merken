@@ -24,12 +24,7 @@ const fontSize = ref(Number(font));
     <MediumTitle icon="font">Font-Size</MediumTitle>
     <p>Change the font size of the application.</p>
     <form @submit.prevent="onSubmit">
-      <BaseInput
-        v-model.number="fontSize"
-        type="text"
-        required
-        label="1 = 16px"
-      />
+      <BaseInput v-model.number="fontSize" type="text" required label="1 = 16px" />
       <ButtonSmall>
         <FontAwesome icon="save" />
       </ButtonSmall>
@@ -42,22 +37,25 @@ div {
   align-items: center;
   grid-template-columns: 2fr 1fr;
 }
+
 form {
   font-size: 0.875rem;
-  gap: 12px;
+  gap: 0.75rem;
 
   display: flex;
 }
+
 input {
   outline: none;
   width: 100%;
   font-size: 0.875rem;
   border-radius: 2px;
   background-color: var(--bg-input);
-  padding: 6px;
+  padding: 0.375rem;
   color: var(--font-color);
   border: 1px solid var(--border-color);
 }
+
 @media screen and (min-width: 620px) {
   form {
     justify-content: end;
@@ -66,6 +64,7 @@ input {
     grid-column: 2;
   }
 }
+
 @media screen and (max-width: 620px) {
   div {
     grid-template-columns: 1fr;

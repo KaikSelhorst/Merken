@@ -18,4 +18,6 @@ import StyleItem from "@/components/generalSettings/StyleItem.vue";
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+</style>

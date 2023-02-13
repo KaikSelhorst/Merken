@@ -67,12 +67,13 @@ import MediumTitle from "@/components/MediumTitle.vue";
 
 <style scoped>
 li {
-  margin-bottom: 12px;
+  margin-bottom: 0.75rem;
   list-style: square;
   font-size: 1rem;
   line-height: 1.425rem;
   list-style-position: inside;
 }
+
 a {
   color: var(--font-color);
   text-decoration: underline;

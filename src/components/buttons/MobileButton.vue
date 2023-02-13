@@ -41,6 +41,7 @@ button {
   display: flex;
   align-items: center;
 }
+
 button::before {
   content: "";
   display: inline-block;
@@ -48,8 +49,8 @@ button::before {
   height: 2px;
   transition: transform 0.3s;
   width: 12px;
-  margin-right: 4px;
-  margin-bottom: 1.5px;
-  box-shadow: 0 4px, 0 -4px;
+  margin-right: 0.25rem;
+  margin-bottom: 0.09375rem;
+  box-shadow: 0 0.25rem, 0 -0.25rem;
 }
 </style>
