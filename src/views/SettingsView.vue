@@ -23,11 +23,18 @@ const isMobile = ref(query.matches);
 <template>
   <section>
     <aside :class="{ active: mobileMenu }" id="aside">
-      <MobileButton emitted-name="settings-mobile" controls="#aside" v-if="isMobile" />
+      <MobileButton
+        emitted-name="settings-mobile"
+        controls="#aside"
+        v-if="isMobile"
+      />
       <nav>
         <ul>
           <li v-for="(option, index) in menuOptions" :key="index">
-            <RouterLink @click="mobileMenu = false" :to="{ name: option.toLocaleLowerCase() }">
+            <RouterLink
+              @click="mobileMenu = false"
+              :to="{ name: option.toLocaleLowerCase() }"
+            >
               {{ option }}
             </RouterLink>
           </li>
@@ -50,7 +57,7 @@ section {
   grid-template-columns: 300px 1fr;
 }
 
-section>* {
+section > * {
   padding: 1rem;
 }
 
@@ -85,7 +92,7 @@ main {
 }
 
 @media screen and (min-width: 620px) {
-  section>* {
+  section > * {
     height: calc(90vh - 8px);
     padding: 1rem;
   }
