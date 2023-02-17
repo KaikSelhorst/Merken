@@ -85,6 +85,7 @@ button[type="submit"] {
 }
 
 button.active {
+  color: var(--button-color);
   background: var(--primary);
 }
 

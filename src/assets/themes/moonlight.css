@@ -1,0 +1,12 @@
+html[data-theme="moonlight"] {
+  --primary: #c69f68;
+  --secondary:#4b5975;
+  --bg-color: #191f28;
+  --bg-input: #2c2e31 ;
+  --bg-button: #2c2e31;
+  --heading-color: #ccccb5;
+  --font-color: #d1d0c5;
+  --alert: #b81b2c;
+  --border-color: #323437;
+  --button-color:#d1d0c5;
+}

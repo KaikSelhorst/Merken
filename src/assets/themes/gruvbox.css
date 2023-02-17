@@ -1,0 +1,12 @@
+html[data-theme="gruvbox"] {
+  --primary: #8cc07c;
+  --secondary:#928374;
+  --bg-color: #1d2021  ;
+  --bg-input: #282828 ;
+  --bg-button: #282828;
+  --heading-color: #83a598;
+  --font-color: #fbf1c7;
+  --alert: #bf616a;
+  --border-color: #3c3836;
+  --button-color:#fbf1c7;
+}

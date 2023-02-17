@@ -1,0 +1,12 @@
+html[data-theme="origamid"] {
+  --primary: #bba0ff;
+  --secondary:#888888;
+  --bg-color: #222222;
+  --bg-input: #333333 ;
+  --bg-button: #333333;
+  --heading-color:#ffffff ;
+  --font-color: #ccccb5;
+  --alert: #e5534b;
+  --border-color: #555555;
+  --button-color:#ffffff;
+}

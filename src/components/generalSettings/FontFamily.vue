@@ -53,6 +53,7 @@ onMounted(() => {
 
 <style scoped>
 button.active {
+  color: var(--button-color);
   background: var(--primary);
 }
 </style>

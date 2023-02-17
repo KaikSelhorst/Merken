@@ -1,0 +1,12 @@
+html[data-theme="dracula"] {
+  --primary: #ff79c6;
+  --secondary: #bd93f9;
+  --bg-color: #282a36  ;
+  --bg-input: #44475a ;
+  --bg-button: #44475a;
+  --heading-color:#bd93f9 ;
+  --font-color: #f8f8f2;
+  --alert: #bf616a;
+  --border-color: #4c5067;
+  --button-color:#f8f8f2;
+}

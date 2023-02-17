@@ -19,6 +19,7 @@ button {
 }
 
 button:hover {
+  color: var(--button-color);
   background: var(--primary);
 }
 </style>
