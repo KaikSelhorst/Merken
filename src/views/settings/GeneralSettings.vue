@@ -9,7 +9,7 @@ import StyleItem from "@/components/generalSettings/StyleItem.vue";
   <div class="settings">
     <article>
       <h1>General</h1>
-      <p>Make some modifications to your app, leaving it your way. *_*</p>
+      <p>Make some modifications to your app, leaving it your way. 🛠️</p>
       <FontSize />
       <FontFamily />
       <StyleItem />
@@ -18,6 +18,4 @@ import StyleItem from "@/components/generalSettings/StyleItem.vue";
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
