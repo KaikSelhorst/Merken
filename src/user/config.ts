@@ -24,8 +24,11 @@ const handleExistentLocal = (config: UserConfig) => {
 };
 
 const initialCheck = () => {
-  const localConfig = getLocal<UserConfig>("config");
-  if (!localConfig) setLocal("config", config);
+  let localConfig = getLocal<UserConfig>("config");
+  if (!localConfig) {
+    setLocal("config", config);
+    localConfig = getLocal<UserConfig>("config");
+  }
   config = localConfig;
   handleExistentLocal(localConfig);
 };
