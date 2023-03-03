@@ -49,35 +49,25 @@ const removeWork = (idWork: number) => {
   }
   if (isEmpty || confirmed) {
     workspaces.removeWork(idWork);
-    id = updateID();
+    goTo(workspaces.worksID.value.at(-1)!);
   }
-  if (workspaces.worksID.value.length === 0) return updateAllConf();
-  if (+router.currentRoute.value.params.id === idWork) goTo(id - 1);
-};
-
-const updateAllConf = () => {
-  workspaces.addWork(1);
-  id = updateID();
 };
 
 const eventAdd = () => {
+  const id = getID();
+  if (deleteMode.value) deleteMode.value = false;
   if (workspaces.worksID.value.length < 5) {
     workspaces.updateWorks();
     workspaces.addWork(id);
     goTo(id);
-    id = updateID();
   }
 };
 
-const updateID = () => workspaces.worksID.value.at(-1)! + 1;
+const getID = () => workspaces.worksID.value.at(-1)! + 1;
 const workspaces = userWorkspaces();
-let id = updateID();
 const router = useRouter();
 const deleteMode = ref(false);
-emitter.on("UPDATE_ALL", () => {
-  workspaces.resetWorks();
-  id = updateID();
-});
+emitter.on("UPDATE_ALL", () => workspaces.resetWorks());
 emitter.on("HAS_NEW_ID_WITH_CONTENT", () => {
   workspaces.updateWorks();
   workspaces.updateHasContents();
@@ -85,10 +75,17 @@ emitter.on("HAS_NEW_ID_WITH_CONTENT", () => {
 </script>
 
 <template>
-  <header :class="['header', { 'delete-mode': deleteMode }]">
+  <header class="header">
     <nav>
-      <WorkItemMenuVue v-for="id in workspaces.worksID.value" :key="id" :to="{ name: 'workspace', params: { id } }"
-        :content="id" :class="{ hasContent: workspaces.workHasContent.value.includes(id) }" />
+      <WorkItemMenuVue
+        v-for="id in workspaces.worksID.value"
+        :key="id"
+        :to="{ name: 'workspace', params: { id } }"
+        :content="id"
+        :class="{ hasContent: workspaces.workHasContent.value.includes(id) }"
+        @click="removeWork(id)"
+        :disabled="deleteMode"
+      />
     </nav>
     <div class="controlers">
       <button @click="deleteMode = false" v-if="deleteMode">👍</button>
@@ -118,7 +115,7 @@ header :is(a, button) {
   color: var(--font-color);
 }
 
-header.delete-mode a {
+a[disabled="true"] {
   color: var(--alert);
 }
 
@@ -135,7 +132,7 @@ button {
   line-height: 1rem;
 }
 
-button+button {
+button + button {
   margin-left: 0.25rem;
 }
 
