@@ -19,6 +19,7 @@ export const userWorkspaces = () => {
       if (work.id === id) works.value.splice(index, 1);
     });
     setLocal("workspaces", works.value);
+    verifyWorks();
   };
   const updateWorks = () => (works.value = getWorks());
   const getWorkContent = (id: number) => {
@@ -37,12 +38,16 @@ export const userWorkspaces = () => {
   const verifyHasContents = () => {
     return workHasContent.value.length !== getHasContent().length;
   };
+  const verifyWorks = () => {
+    if (!works.value.length) resetWorks();
+  };
   const updateHasContents = () => (workHasContent.value = getHasContent());
   const resetWorks = () => {
     setLocal("workspaces", [{ id: 1, content: "" }]);
     updateWorks();
   };
-  if (!works.value) resetWorks();
+
+  verifyWorks();
 
   return {
     works,
@@ -52,6 +57,7 @@ export const userWorkspaces = () => {
     removeWork,
     resetWorks,
     updateWorks,
+    verifyWorks,
     getWorkContent,
     updateWorkContent,
     verifyHasContents,
