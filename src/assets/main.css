@@ -6,13 +6,16 @@ html {
 }
 
 * {
-  list-style: none;
   font-family: monospace;
   box-sizing: border-box;
   text-decoration: none;
   font-family: inherit;
   margin: 0;
   padding: 0;
+}
+
+*:not(.markdown-body *) {
+  list-style: none;
 }
 
 :root {

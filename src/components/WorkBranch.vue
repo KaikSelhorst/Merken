@@ -20,9 +20,12 @@ if (!media) previewMode.value = true;
 
 <template>
   <section>
-    <textarea :value="content" @input="
-      $emit('update:content', ($event.target as HTMLTextAreaElement).value)
-    "></textarea>
+    <textarea
+      :value="content"
+      @input="
+        $emit('update:content', ($event.target as HTMLTextAreaElement).value)
+      "
+    ></textarea>
     <div v-html="tranformMarkdown" class="markdown-body"></div>
   </section>
 </template>
@@ -44,7 +47,7 @@ textarea {
   outline: none;
 }
 
-section>* {
+section > * {
   padding: 0.5rem 0.75rem;
   max-width: 50vw;
   border-radius: 2px;
@@ -56,12 +59,12 @@ section>* {
     grid-template-columns: 1fr;
   }
 
-  section>* {
+  section > * {
     grid-area: 1/1;
     max-width: calc(100vw - 16px);
   }
 
-  section>div {
+  section > div {
     /* Fix That */
     max-height: 88vh;
     overflow: auto;
@@ -69,7 +72,7 @@ section>* {
     display: none;
   }
 
-  .preview-mode section>div {
+  .preview-mode section > div {
     display: initial;
   }
 }
