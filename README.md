@@ -2,16 +2,11 @@
 
 ### Description
 
-A simple code editor for Markdown with GITHUB theme.
+Merken is a web application for easy editing of markdown-style text. It offers a live preview allowing the user to see what is written and make changes in real time. This tool also offers customization of themas and font families to adapt to your writing style. Merken is ideal for anyone who needs a powerful markdown editor with professional features.
 
 ### Prerequisites
 
-Step by step instructions on how to use the application
-
-- [Node.js](https://nodejs.org/en/)
-- [Vscode TypeScript Vue Plugin(volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) Type Support for .vue Imports in TS
-
-_In this project is necessary install Node.js for use a next commands_
+To start the project the first step is to download and install `Node.js`, which is a JavaScript development platform that makes it possible to run JavaScript code outside the browser. Also, if you are using Vscode, you need to download the `TypeScript Vue Plugin extension (volar)`. Both are minimum requirements to start the project.
 
 ```bash
 $ npm install    # Install all dependencies
@@ -23,20 +18,40 @@ $ npm run build  # Production mode
 $ npm run lint   # Use diferent lint config
 ```
 
-### Tools
+### Tech Stack
 
-| Tool       | Documentation                                |
-| ---------- | -------------------------------------------- |
-| Marked     | [Version 4](https://marked.js.org/)          |
-| Vue.js     | [Version 3](https://vuejs.org/)              |
-| Vue Router | [Version 4](https://router.vuejs.org/)       |
-| Vite       | [Version 4](https://vitejs.dev/)             |
-| Mitt	     | [Version 3](https://github.com/developit/mitt)|
-| TypeScript | [Version 4](https://www.typescriptlang.org/) |
+- [Marked](https://marked.js.org/) - A markdown parser and compiler. Built for speed.
+- [Vue.js](https://vuejs.org/) - Focus on the content while having the power of HTML and Vue components whenever needed.
+- [Vue Router](https://router.vuejs.org/) - Expressive, configurable and convenient routing for Vue.js.
+- [Vite](https://vitejs.dev/) - An extremely fast frontend tooling.
+- [Mitt](https://github.com/developit/mitt) -  Functional event emitter.
+- [TypeScript](https://www.typescriptlang.org/) - JavaScript with syntax for types.
+
+### Project structure
+
+```bash
+$PROJECT_ROOT
+│   # Global CSS
+├── assets
+│   # Vue.js component files
+├── components
+│   # User Configuration
+├── user
+│   # Page files
+├── view
+│   # Global functions
+└── helpers.ts
+
+```
+### Contributing to Merken
+
+Making contributions to Project Merken is a great way to collaborate with the community. Whether it's creating new themes, adding new features or improving performance, any contribution is welcome! Merken is always looking for improvements and feedback to make the project better, so join the Merken family and do your part!
+
+
 
 ### License
 
-Koorst © 2021 - 22 // Some reserved rights.
+Selhorst © 2023 // Some reserved rights.
 
 ### Contact
 
