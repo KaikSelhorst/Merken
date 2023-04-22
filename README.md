@@ -24,8 +24,9 @@ $ npm run lint   # Use diferent lint config
 - [Vue.js](https://vuejs.org/) - Focus on the content while having the power of HTML and Vue components whenever needed.
 - [Vue Router](https://router.vuejs.org/) - Expressive, configurable and convenient routing for Vue.js.
 - [Vite](https://vitejs.dev/) - An extremely fast frontend tooling.
-- [Mitt](https://github.com/developit/mitt) -  Functional event emitter.
+- [Mitt](https://github.com/developit/mitt) - Functional event emitter.
 - [TypeScript](https://www.typescriptlang.org/) - JavaScript with syntax for types.
+- [Pinia](https://pinia.vuejs.org) - The intuitive store for Vue.js
 
 ### Project structure
 
@@ -43,11 +44,10 @@ $PROJECT_ROOT
 └── helpers.ts
 
 ```
+
 ### Contributing to Merken
 
 Making contributions to Project Merken is a great way to collaborate with the community. Whether it's creating new themes, adding new features or improving performance, any contribution is welcome! Merken is always looking for improvements and feedback to make the project better, so join the Merken family and do your part!
-
-
 
 ### License
 
