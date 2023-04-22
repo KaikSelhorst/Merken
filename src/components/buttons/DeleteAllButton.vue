@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import emitter from "@/emitter";
+import { userWorkspaces } from "@/store/workspaces";
 
 const onClick = () => {
   const confirm = window.confirm("Do you want delete all workspaces?");
-  if (confirm) emitter.emit("UPDATE_ALL");
+  const workspaces = userWorkspaces();
+  if (confirm) workspaces.resetWorks();
 };
 </script>
 

@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
-import { userWorkspaces } from "@/user/workspaces";
+import { userWorkspaces } from "@/store/workspaces";
 
-import emitter from "@/emitter";
 import { goTo } from "@/helpers";
 import Workbranch from "@/components/WorkBranch.vue";
 
@@ -20,17 +19,13 @@ const getContentByID = () => {
   else contentWork.value = content;
 };
 
-watch(contentWork, () => {
-  workspaces.updateWorkContent(idWork.value, contentWork.value);
-  if (workspaces.verifyHasContents()) {
-    workspaces.updateHasContents();
-    emitter.emit("HAS_NEW_ID_WITH_CONTENT");
-  }
-});
+watch(contentWork, () =>
+  workspaces.updateWorkContent(idWork.value, contentWork.value)
+);
+
 watch(
   () => router.currentRoute.value.params.id,
   () => {
-    workspaces.updateWorks();
     idWork.value = getID();
     getContentByID();
   }

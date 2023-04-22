@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import TheHeader from "./components/TheHeader.vue";
+import { useShortcuts } from "./user/shortcuts";
 import { RouterView } from "vue-router";
 
 const getInitialLocal = () => {
@@ -12,6 +13,7 @@ const getInitialLocal = () => {
 };
 
 getInitialLocal();
+useShortcuts();
 </script>
 
 <template>

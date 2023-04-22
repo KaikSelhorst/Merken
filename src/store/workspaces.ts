@@ -1,19 +1,25 @@
-import { ref, computed } from "vue";
+import { defineStore } from "pinia";
 import { getLocal, setLocal } from "@/helpers";
 import type { Workspace } from "env";
+import { computed, ref } from "vue";
 
-export const userWorkspaces = () => {
+export const userWorkspaces = defineStore("workspaces", () => {
   const getWorks = () => getLocal<Workspace[]>("workspaces");
-  const getHasContent = () =>
-    works.value.filter(({ content }) => !!content).map(({ id }) => id);
+  const getLastID = () => worksID.value.at(-1)! + 1;
   const works = ref(getWorks());
   const worksID = computed(() => works.value.map(({ id }) => id));
-  const workHasContent = ref(getHasContent());
+
+  const worksHasContent = computed(() =>
+    works.value.filter(({ content }) => !!content).map(({ id }) => id)
+  );
 
   const addWork = (id: number) => {
+    if (works.value.length >= 5) return;
     works.value.push({ id, content: "" });
     setLocal("workspaces", works.value);
+    return true;
   };
+
   const removeWork = (id: number) => {
     works.value.forEach((work, index) => {
       if (work.id === id) works.value.splice(index, 1);
@@ -21,30 +27,25 @@ export const userWorkspaces = () => {
     setLocal("workspaces", works.value);
     verifyWorks();
   };
-  const updateWorks = () => (works.value = getWorks());
+
   const getWorkContent = (id: number) => {
-    const work = works.value.filter((work) => work.id === id);
-    if (work[0]) return work[0].content;
+    const work = works.value.filter((work) => work.id === id)[0];
+    if (work) return work.content;
     else return null;
   };
+
   const updateWorkContent = (id: number, content: string) => {
     works.value.forEach((work) => {
-      if (work.id === id) {
-        work.content = content;
-        setLocal("workspaces", works.value);
-      }
+      if (work.id === id) work.content = content;
+      setLocal("workspaces", works.value);
     });
   };
-  const verifyHasContents = () => {
-    return workHasContent.value.length !== getHasContent().length;
-  };
-  const verifyWorks = () => {
-    if (!works.value.length) resetWorks();
-  };
-  const updateHasContents = () => (workHasContent.value = getHasContent());
+
+  const verifyWorks = () => (works.value.length ? null : resetWorks());
+
   const resetWorks = () => {
     setLocal("workspaces", [{ id: 1, content: "" }]);
-    updateWorks();
+    works.value = getWorks();
   };
 
   verifyWorks();
@@ -52,15 +53,13 @@ export const userWorkspaces = () => {
   return {
     works,
     worksID,
-    workHasContent,
+    worksHasContent,
     addWork,
+    getLastID,
     removeWork,
     resetWorks,
-    updateWorks,
     verifyWorks,
     getWorkContent,
     updateWorkContent,
-    verifyHasContents,
-    updateHasContents,
   };
-};
+});
