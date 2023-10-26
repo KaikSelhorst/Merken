@@ -75,9 +75,9 @@ nav button {
 aside,
 aside a {
   color: var(--font-color);
-  line-height: 1.25rem;
+  line-height: 1.5;
   font-weight: 500;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
 }
 
 main {
